@@ -1,0 +1,39 @@
+.main_component {
+  padding: 2rem 2rem 0 2rem;
+
+  .section_container {
+    height: 100vh;
+
+    &--flex {
+      @extend .section_container;
+      display: flex;
+    }
+
+    &--last {
+      @extend .section_container;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .last_div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        div button {
+          margin: 0 0.5rem;
+        }
+      }
+    }
+
+    .h1_text {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .p_text {
+      margin: 0 0 1rem 0;
+    }
+  }
+}

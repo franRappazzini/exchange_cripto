@@ -1,0 +1,16 @@
+.home_component {
+  padding: 2rem 2rem 0 2rem;
+
+  .btns_container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .card_saldo {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+  }
+}

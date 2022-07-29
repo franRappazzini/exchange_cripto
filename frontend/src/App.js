@@ -1,9 +1,26 @@
 import "./App.css";
 
+import { Route, Routes } from "react-router-dom";
+
+import Header from "./components/molecules/Header/Header";
+import Home from "./components/organisms/Home/Home";
 import Main from "./components/organisms/Main/Main";
+import Operar from "./components/organisms/Operar/Operar";
 
 function App() {
-  return <Main />;
+  return (
+    <>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Main />} />
+
+        <Route path="/home" element={<Home />} />
+
+        <Route path="/operar" element={<Operar />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
