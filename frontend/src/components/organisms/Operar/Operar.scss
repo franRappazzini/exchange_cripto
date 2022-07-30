@@ -1,3 +1,23 @@
 .operar_component {
   padding: 2rem 2rem 0 2rem;
+
+  .link_name {
+    color: whitesmoke;
+    transition: 0.1s;
+
+    &:hover {
+      font-size: 1rem;
+    }
+  }
+
+  .loader_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination_container {
+    @extend .loader_container;
+    margin: 2rem 0;
+  }
 }

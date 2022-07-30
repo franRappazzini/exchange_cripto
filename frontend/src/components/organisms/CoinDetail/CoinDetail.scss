@@ -1,0 +1,112 @@
+.coin-detail_component {
+  padding: 2rem 2rem 0 2rem;
+  background-color: #121212;
+  color: whitesmoke;
+  min-height: 100vh;
+
+  .breadcrumb_container a {
+    color: white;
+    // font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .first_div {
+    display: flex;
+    align-items: center;
+
+    .coin_image {
+      width: 2rem;
+      border-radius: 1rem;
+      margin-right: 0.5rem;
+    }
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .second_div {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0.5rem 0 0;
+    }
+
+    span {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .more-details_coin {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    width: 70%;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+
+    section div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid grey;
+      margin-bottom: 1rem;
+
+      .span_grey {
+        color: gray;
+      }
+
+      .span_number {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .chart_container {
+    margin-top: 2rem;
+    // display: flex;
+    //     width: 100%;
+  }
+
+  .card-content_container {
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid grey;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+
+      .span_grey {
+        color: gray;
+      }
+
+      .span_number {
+        font-weight: 500;
+      }
+    }
+  }
+
+  // tablet
+  @media only screen and (max-width: 820px) {
+    .more-details_coin {
+      width: 100%;
+    }
+  }
+
+  // mobile
+  @media only screen and (max-width: 550px) {
+    .more-details_coin {
+      grid-template-columns: 1fr;
+      grid-gap: 0;
+    }
+  }
+}
