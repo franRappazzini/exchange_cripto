@@ -2,9 +2,11 @@ import "./CoinDetail.scss";
 
 import {
   Breadcrumbs,
+  Button,
   Card,
   CardContent,
   CardHeader,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
@@ -12,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AdvancedChart } from "react-tradingview-embed";
 import React from "react";
+import { StarOutline } from "@mui/icons-material";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { useEffect } from "react";
 
@@ -24,7 +27,7 @@ function CoinDetail() {
   useEffect(() => {
     dispatch(getCoins());
 
-    console.log("coin detail", coin);
+    console.log("coinDetail", coin);
   }, [dispatch]);
 
   function returnColor() {
@@ -33,23 +36,38 @@ function CoinDetail() {
 
   return (
     <main className="coin-detail_component">
-      <Breadcrumbs aria-label="breadcrumb" className="breadcrumb_container">
-        <Link to="/operar">Coins</Link>
-        <Typography color="text.secondary">Breadcrumbs</Typography>
-      </Breadcrumbs>
       {Object.keys(coin).length > 0 && (
-        <article>
+        <>
+          <Breadcrumbs aria-label="breadcrumb" className="breadcrumb_container">
+            <Link to="/operar">Coins</Link>
+            <Typography color="text.secondary">{coin.name}</Typography>
+          </Breadcrumbs>
+
           <div className="first_div">
             <img src={coin.image} alt={`${coin.name}`} className="coin_image" />
             <h3>
               {coin.name} ({coin.symbol.toUpperCase()})
             </h3>
+            <IconButton color="warning" aria-label="Favorito">
+              <StarOutline />
+            </IconButton>
           </div>
+
           <div className="second_div">
             <h1>${coin.current_price}</h1>
             <span style={{ color: returnColor() }}>
               {coin.price_change_percentage_24h.toFixed(2)}%
             </span>
+          </div>
+
+          <div className="third_div">
+            <Button variant="text" size="small" color="success">
+              Comprar
+            </Button>
+
+            <Button variant="text" size="small" color="error">
+              Vender
+            </Button>
           </div>
 
           <section className="more-details_coin">
@@ -83,18 +101,24 @@ function CoinDetail() {
             </section>
           </section>
 
-          <section className="chart_container">
-            {/* <AdvancedChart
-              widgetProps={{
-                symbol: `${coin.symbol}usd`,
-                interval: "60",
-                style: 1,
-                locale: "es",
-                // width: "100%",
-              }}
-            /> */}
+          <section className="more-info_container">
+            <div>
+              <AdvancedChart
+                widgetProps={{
+                  symbol: `${coin.symbol}usd`,
+                  allow_symbol_change: false,
+                  interval: "60",
+                  style: 1,
+                  locale: "es",
+                  range: "10d",
+                  //   hide_side_toolbar: true,
+                  //   hide_top_toolbar: true,
+                  //   withdateranges: false,
+                }}
+              />
+            </div>
 
-            <Card elevation={4} className="card-price_container">
+            <Card elevation={4}>
               <CardHeader
                 title={`Estadisticas de precio (${coin.symbol.toUpperCase()})`}
               />
@@ -151,7 +175,7 @@ function CoinDetail() {
               </CardContent>
             </Card>
           </section>
-        </article>
+        </>
       )}
     </main>
   );

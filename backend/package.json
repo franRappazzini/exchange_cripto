@@ -1,6 +1,10 @@
 {
   "dependencies": {
-    "express": "^4.18.1"
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3"
   },
   "scripts": {
     "start": "nodemon server.js"
@@ -8,7 +12,6 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "db.js",
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
