@@ -1,0 +1,16 @@
+.signn-in_component {
+  padding: 2rem 2rem 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+
+  .card_sign-in {
+    width: fit-content;
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 1rem;
+    }
+  }
+}

@@ -1,14 +1,14 @@
 const { Router } = require("express");
 const { User, Wallet } = require("../db");
-const user = Router();
+const users = Router();
 
-user.post("/user", async (req, res) => {
+users.post("/users", async (req, res) => {
   const { name, lastName, email, password } = req.body;
   const data = { name, lastName, email, password };
+
   try {
     const newUser = await User.create(data);
-
-    const dataWallet = { UserId: newUser.id, availableMoney: 0 };
+    const dataWallet = { UserId: newUser.id, availableMoney: 0 }; // creacion de wallet para user
     await Wallet.create(dataWallet);
 
     res.status(201).json({ success: "Usuario creado con exito!" });
@@ -17,7 +17,7 @@ user.post("/user", async (req, res) => {
   }
 });
 
-user.get("/users", async (req, res) => {
+users.get("/users", async (req, res) => {
   try {
     const response = await User.findAll({ include: { model: Wallet } });
     res.json(response);
@@ -26,4 +26,15 @@ user.get("/users", async (req, res) => {
   }
 });
 
-module.exports = user;
+users.get("/user/:email", async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const response = await User.findOne({ where: { email } });
+    res.json(response);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+});
+
+module.exports = users;

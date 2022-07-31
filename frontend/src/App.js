@@ -7,6 +7,7 @@ import Header from "./components/molecules/Header/Header";
 import Home from "./components/organisms/Home/Home";
 import Main from "./components/organisms/Main/Main";
 import Operar from "./components/organisms/Operar/Operar";
+import SignIn from "./components/organisms/SignIn/SignIn";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />} />
+
+        <Route path="/sign-in" element={<SignIn />} />
 
         <Route path="/home" element={<Home />} />
 
