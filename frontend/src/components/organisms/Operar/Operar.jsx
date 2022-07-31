@@ -16,6 +16,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
+import ModalCompra from "../../molecules/ModalCompra/ModalCompra";
+import ModalForCoin from "../../molecules/ModalForCoin/ModalForCoin";
+import ModalVenta from "../../molecules/ModalVenta/ModalVenta";
+import TableRowCoin from "../../molecules/TableRowCoin/TableRowCoin";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { useEffect } from "react";
 
@@ -23,6 +27,7 @@ function Operar() {
   const { allCoins } = useSelector((state) => state.crypto);
   const dispatch = useDispatch();
   const coins = allCoins.length > 0 ? allCoins : [];
+  const [modals, setModals] = useState({ buy: false, sell: false });
   const [page, setPage] = useState(1);
   const coinsPerPage = 20;
   const totalPage = Math.ceil(coins.length / coinsPerPage);
@@ -93,58 +98,21 @@ function Operar() {
                     (page - 1) * coinsPerPage + coinsPerPage
                   )
                   .map((coin) => (
-                    <TableRow key={coin.id}>
-                      <TableCell component="th" scope="row">
-                        {coin.market_cap_rank}
-                      </TableCell>
-                      <TableCell>
-                        <img src={coin.image} alt={coin.id} width={30} />
-                      </TableCell>
-                      <TableCell sx={{ fontWeight: 600 }}>
-                        <Link to={`/coin/${coin.id}`} className="link_name">
-                          {coin.name} ({coin.symbol.toUpperCase()})
-                        </Link>
-                      </TableCell>
-                      <TableCell align="right">
-                        ${new Intl.NumberFormat().format(coin.current_price)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {coin.price_change_percentage_1h_in_currency.toFixed(2)}
-                        %
-                      </TableCell>
-                      <TableCell align="right">
-                        {coin.price_change_percentage_24h_in_currency.toFixed(
-                          2
-                        )}
-                        %
-                      </TableCell>
-                      <TableCell align="right">
-                        {coin.price_change_percentage_7d_in_currency.toFixed(2)}
-                        %
-                      </TableCell>
-                      <TableCell align="right">
-                        ${new Intl.NumberFormat().format(coin.total_volume)}
-                      </TableCell>
-                      <TableCell align="right">
-                        ${new Intl.NumberFormat().format(coin.market_cap)}
-                      </TableCell>
-                      <TableCell align="right">
-                        <Button
-                          color="success"
-                          size="small"
-                          //   onClick={() => setOpen(true)}
-                        >
-                          Comprar
-                        </Button>
-                        <Button
-                          color="error"
-                          size="small"
-                          //   onClick={() => setOpenVenta(true)}
-                        >
-                          Vender
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+                    <TableRowCoin
+                      key={coin.id}
+                      coin={coin}
+                      modals={modals}
+                      setModals={setModals}
+                    />
+                    // <article key={coin.id}>
+
+                    //   <ModalForCoin
+                    //     modals={modals}
+                    //     setModals={setModals}
+                    //     coin={coin}
+                    //   />
+                    //   <ModalVenta {...coin} />
+                    // </article>
                   ))}
               </TableBody>
             </Table>
