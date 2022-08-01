@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header setOption={setOption} />
 
       <Routes>
         <Route path="/" element={<Main />} />

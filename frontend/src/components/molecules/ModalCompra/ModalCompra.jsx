@@ -17,7 +17,6 @@ import { useState } from "react";
 function ModalCompra({ modals, handleClose, coin }) {
   const [amount, setAmount] = useState("");
   const { id, name, current_price, image, symbol } = coin;
-  // name, symbol, image, purchasePrice, walletId
 
   async function handleTrading() {
     if (amount < 10) return;
@@ -37,8 +36,6 @@ function ModalCompra({ modals, handleClose, coin }) {
       setAmount(0);
       return alert("todo ok");
     }
-
-    // handleClose();
   }
 
   return (

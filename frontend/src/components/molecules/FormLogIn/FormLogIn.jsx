@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FormLogIn({ userLogIn, setUserLogIn }) {
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const allUsers = users.length > 0 ? users : [];
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getUsers());
@@ -31,7 +33,9 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
 
       if (user) {
         dispatch(setLogedUser(user));
+        localStorage.setItem("logedUser", JSON.stringify(user));
         setUserLogIn({ email: "", password: "" });
+        navigate("/home");
       } else alert("error al iniciar sesion");
     }
   }
