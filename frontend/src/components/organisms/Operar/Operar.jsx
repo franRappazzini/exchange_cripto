@@ -1,7 +1,6 @@
 import "./Operar.scss";
 
 import {
-  Button,
   CircularProgress,
   Pagination,
   Paper,
@@ -15,10 +14,6 @@ import {
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
-import ModalCompra from "../../molecules/ModalCompra/ModalCompra";
-import ModalForCoin from "../../molecules/ModalForCoin/ModalForCoin";
-import ModalVenta from "../../molecules/ModalVenta/ModalVenta";
 import TableRowCoin from "../../molecules/TableRowCoin/TableRowCoin";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { useEffect } from "react";
@@ -27,7 +22,6 @@ function Operar() {
   const { allCoins } = useSelector((state) => state.crypto);
   const dispatch = useDispatch();
   const coins = allCoins.length > 0 ? allCoins : [];
-  const [modals, setModals] = useState({ buy: false, sell: false });
   const [page, setPage] = useState(1);
   const coinsPerPage = 20;
   const totalPage = Math.ceil(coins.length / coinsPerPage);
@@ -38,8 +32,6 @@ function Operar() {
 
   return (
     <main className="operar_component">
-      {/* TODO hacer paginado */}
-
       {coins.length > 0 ? (
         <>
           <TableContainer component={Paper} elevation={4}>
@@ -91,28 +83,13 @@ function Operar() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* TODO esto otro componente */}
                 {coins
                   .slice(
                     (page - 1) * coinsPerPage,
                     (page - 1) * coinsPerPage + coinsPerPage
                   )
                   .map((coin) => (
-                    <TableRowCoin
-                      key={coin.id}
-                      coin={coin}
-                      modals={modals}
-                      setModals={setModals}
-                    />
-                    // <article key={coin.id}>
-
-                    //   <ModalForCoin
-                    //     modals={modals}
-                    //     setModals={setModals}
-                    //     coin={coin}
-                    //   />
-                    //   <ModalVenta {...coin} />
-                    // </article>
+                    <TableRowCoin key={coin.id} coin={coin} />
                   ))}
               </TableBody>
             </Table>
