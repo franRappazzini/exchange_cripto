@@ -8,23 +8,35 @@ import {
 
 import { Link } from "react-router-dom";
 import React from "react";
+import { tradingCoins } from "../../../redux/actions/cryptoActions";
 import { useState } from "react";
 
-function ModalVenta({
-  modals,
-  handleClose,
-  id,
-  name,
-  current_price,
-  image,
-  symbol,
-}) {
-  //   const [open, setOpen] = useState(false);
+function ModalVenta({ modals, handleClose, coin }) {
   const [amount, setAmount] = useState("");
+  const { id, name, current_price, image, symbol } = coin;
+
+  async function handleTrading() {
+    if (current_price * amount < 1) return;
+
+    const newTrading = {
+      name,
+      symbol,
+      image,
+      amount: -amount,
+      ppc: current_price, // TODO sacar, porque en venta creo que no cambiaria
+      WalletId: "1",
+    };
+
+    const res = await tradingCoins(newTrading);
+    if (res) return alert(res.message);
+    else {
+      setAmount("");
+      return alert("todo ok");
+    }
+  }
 
   return (
     <>
-      {/* <Button onClick={handleClickOpen}>open</Button> */}
       <Dialog
         onClose={handleClose}
         open={modals}
@@ -70,9 +82,20 @@ function ModalVenta({
               </Typography>
             </div>
 
-            <Button variant="contained" color="error" onClick={handleClose}>
-              Vender
-            </Button>
+            <div className="btns_container">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleTrading}
+                // TODO aclarar min de venta $1
+                disabled={current_price * amount < 1 ? true : false}
+              >
+                Vender
+              </Button>
+              <Button color="error" onClick={handleClose}>
+                Cerrar
+              </Button>
+            </div>
           </section>
         </DialogContent>
       </Dialog>

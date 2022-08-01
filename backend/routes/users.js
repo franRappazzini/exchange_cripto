@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User, Wallet } = require("../db");
+const { User, Wallet, TradingCoin } = require("../db");
 const users = Router();
 
 users.post("/users", async (req, res) => {
@@ -19,13 +19,17 @@ users.post("/users", async (req, res) => {
 
 users.get("/users", async (req, res) => {
   try {
-    const response = await User.findAll({ include: { model: Wallet } });
+    // TODO ver como incluir compras de esa wallet
+    const response = await User.findAll({
+      include: { model: Wallet, include: { model: TradingCoin } },
+    });
     res.json(response);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 });
 
+// ????
 users.get("/user/:email", async (req, res) => {
   const { email } = req.params;
 

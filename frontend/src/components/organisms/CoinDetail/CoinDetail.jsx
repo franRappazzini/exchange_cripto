@@ -54,7 +54,7 @@ function CoinDetail() {
           </div>
 
           <div className="second_div">
-            <h1>${coin.current_price}</h1>
+            <h1>${new Intl.NumberFormat().format(coin.current_price)}</h1>
             <span style={{ color: returnColor() }}>
               {coin.price_change_percentage_24h.toFixed(2)}%
             </span>
@@ -69,6 +69,8 @@ function CoinDetail() {
               Vender
             </Button>
           </div>
+
+          {/* TODO aca hacer un conversor como coingecko */}
 
           <section className="more-details_coin">
             <section>

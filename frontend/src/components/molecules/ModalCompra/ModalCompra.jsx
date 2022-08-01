@@ -11,23 +11,38 @@ import {
 
 import { Link } from "react-router-dom";
 import React from "react";
+import { tradingCoins } from "../../../redux/actions/cryptoActions";
 import { useState } from "react";
 
-function ModalCompra({
-  modals,
-  handleClose,
-  id,
-  name,
-  current_price,
-  image,
-  symbol,
-}) {
-  //   const [open, setOpen] = useState(false);
+function ModalCompra({ modals, handleClose, coin }) {
   const [amount, setAmount] = useState("");
+  const { id, name, current_price, image, symbol } = coin;
+  // name, symbol, image, purchasePrice, walletId
+
+  async function handleTrading() {
+    if (amount < 10) return;
+
+    const newCoin = {
+      name,
+      symbol,
+      image,
+      amount: amount / current_price,
+      ppc: current_price,
+      WalletId: "1",
+    };
+
+    const res = await tradingCoins(newCoin);
+    if (res) return alert(res.message);
+    else {
+      setAmount(0);
+      return alert("todo ok");
+    }
+
+    // handleClose();
+  }
 
   return (
     <>
-      {/* <Button onClick={handleClickOpen}>open</Button> */}
       <Dialog
         onClose={handleClose}
         open={modals.buy}
@@ -78,9 +93,19 @@ function ModalCompra({
               </Typography>
             </div>
 
-            <Button variant="contained" color="success" onClick={handleClose}>
-              Comprar
-            </Button>
+            <div className="btns_container">
+              <Button
+                variant="contained"
+                color="success"
+                onClick={handleTrading}
+                disabled={amount < 10 ? true : false}
+              >
+                Comprar
+              </Button>
+              <Button color="error" onClick={handleClose}>
+                Cerrar
+              </Button>
+            </div>
           </section>
         </DialogContent>
       </Dialog>

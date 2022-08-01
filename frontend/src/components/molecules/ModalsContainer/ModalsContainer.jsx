@@ -2,7 +2,7 @@ import ModalCompra from "../ModalCompra/ModalCompra";
 import ModalVenta from "../ModalVenta/ModalVenta";
 import React from "react";
 
-function ModalForCoin({ modals, setModals, coin }) {
+function ModalsContainer({ modals, setModals, coin }) {
   function handleClose() {
     setModals({ buy: false, sell: false });
   }
@@ -10,13 +10,13 @@ function ModalForCoin({ modals, setModals, coin }) {
   return (
     <>
       {modals.buy && (
-        <ModalCompra modals={modals} handleClose={handleClose} {...coin} />
+        <ModalCompra modals={modals} handleClose={handleClose} coin={coin} />
       )}
       {modals.sell && (
-        <ModalVenta modals={modals} handleClose={handleClose} {...coin} />
+        <ModalVenta modals={modals} handleClose={handleClose} coin={coin} />
       )}
     </>
   );
 }
 
-export default ModalForCoin;
+export default ModalsContainer;

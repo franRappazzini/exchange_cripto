@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  sequelize.define("PurchasedCoin", {
+  sequelize.define("TradingCoin", {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: { isUrl: true },
     },
-    purchasePrice: {
+    amount: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    walletId: {
-      type: DataTypes.STRING,
+    ppc: {
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
   });

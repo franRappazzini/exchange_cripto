@@ -21,6 +21,7 @@ function FormSignUp({ newUser, setNewUser }) {
       console.log(res.response.data.error);
       alert(res.response.data.error);
     } else {
+      // TODO reiniciar inputs y setear user
       console.log(res);
       alert("ok");
     }

@@ -11,7 +11,15 @@ export function getCoins() {
 
       return dispatch({ type: GET_COINS, payload: res.data });
     } catch (err) {
-      console.log(err.message);
+      return err;
     }
   };
+}
+
+export async function tradingCoins(coin) {
+  try {
+    await axios.post("http://localhost:3001/coins", coin);
+  } catch (err) {
+    return err;
+  }
 }

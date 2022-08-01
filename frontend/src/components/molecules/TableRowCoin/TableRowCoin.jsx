@@ -2,7 +2,7 @@ import { Button, TableCell, TableRow } from "@mui/material";
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
-import ModalForCoin from "../ModalForCoin/ModalForCoin";
+import ModalForCoin from "../ModalsContainer/ModalsContainer";
 
 function TableRowCoin({ coin }) {
   const [modals, setModals] = useState({ buy: false, sell: false });
