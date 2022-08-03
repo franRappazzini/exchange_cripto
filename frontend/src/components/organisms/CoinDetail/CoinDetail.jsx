@@ -46,8 +46,6 @@ function CoinDetail() {
             setModals={setModals}
           />
 
-          {/* TODO aca hacer un conversor como coingecko */}
-
           <AdvancedChartInfo coin={coin} />
 
           <ModalsContainer modals={modals} setModals={setModals} coin={coin} />
