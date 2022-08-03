@@ -35,7 +35,11 @@ function SignIn({ option, setOption }) {
 
       <FormLogIn userLogIn={userLogIn} setUserLogIn={setUserLogIn} />
 
-      <FormSignUp newUser={newUser} setNewUser={setNewUser} />
+      <FormSignUp
+        newUser={newUser}
+        setNewUser={setNewUser}
+        setOption={setOption}
+      />
     </main>
   );
 }

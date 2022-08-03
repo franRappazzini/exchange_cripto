@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const GET_ONE_USER = "GET_ONE_USER";
-export const GET_USERS = "GET_USERS";
-export const SET_LOGED_USER = "SET_LOGED_USER";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const GET_USER = "GET_USER";
 
 const URL = "http://localhost:3001/users";
 
@@ -14,29 +14,28 @@ export async function createUser(user) {
   }
 }
 
-export function getUsers() {
+export function getAllUsers() {
   return async (dispatch) => {
     try {
       const res = await axios.get(URL);
-      dispatch({ type: GET_USERS, payload: res.data });
+      dispatch({ type: GET_ALL_USERS, payload: res.data });
     } catch (err) {
       return err;
     }
   };
 }
 
-export function setLogedUser(user) {
-  return (dispatch) => dispatch({ type: SET_LOGED_USER, payload: user });
-}
-
-// ????
-export function getOneUser(email) {
+export function getUser(user) {
   return async (dispatch) => {
-    try {
-      const res = await axios(URL + email);
-      dispatch({ type: GET_ONE_USER, payload: res.data });
-    } catch (err) {
-      return err;
+    if (typeof user === "object") {
+      dispatch({ type: GET_USER, payload: user });
+    } else {
+      try {
+        const res = await axios.get(`${URL}/${user}`);
+        dispatch({ type: GET_USER, payload: res.data });
+      } catch (err) {
+        return err;
+      }
     }
   };
 }

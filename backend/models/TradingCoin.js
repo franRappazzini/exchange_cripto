@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    investmentAmount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
     ppc: {
       type: DataTypes.FLOAT,
       allowNull: false,

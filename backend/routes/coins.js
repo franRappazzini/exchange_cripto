@@ -3,19 +3,26 @@ const { TradingCoin } = require("../db");
 const coins = Router();
 
 coins.post("/coins", async (req, res) => {
-  const { name, symbol, image, amount, ppc, WalletId } = req.body;
+  const { name, symbol, image, amount, investmentAmount, ppc, WalletId } =
+    req.body;
 
   try {
     const [coin, created] = await TradingCoin.findOrCreate({
       where: { name },
-      defaults: { symbol, image, amount, ppc, WalletId },
+      defaults: { symbol, image, amount, ppc, investmentAmount, WalletId },
     });
 
     if (!created) {
       coin.amount += amount;
       amount > 0 && (coin.ppc = (coin.ppc + ppc) / 2);
-      coin.save();
+      coin.investmentAmount += parseInt(investmentAmount);
+
+      coin.amount === 0 ? await coin.destroy() : await coin.save();
     }
+
+    // const wallet = await coin.getWallet();
+    // wallet.totalMoney = coin.investmentAmount;
+    // console.log(wallet);
 
     res.status(201).json({ success: "Operado con exito!" });
   } catch (err) {

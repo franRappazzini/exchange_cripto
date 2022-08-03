@@ -14,27 +14,32 @@ import React from "react";
 import { tradingCoins } from "../../../redux/actions/cryptoActions";
 import { useState } from "react";
 
-function ModalCompra({ modals, handleClose, coin }) {
+function ModalCompra({ modals, handleClose, coin, logedUser }) {
   const [amount, setAmount] = useState("");
   const { id, name, current_price, image, symbol } = coin;
+  const availableMoney = logedUser.Wallet?.availableMoney;
 
   async function handleTrading() {
     if (amount < 10) return;
+    if (availableMoney < amount) return;
 
     const newCoin = {
       name,
       symbol,
       image,
       amount: amount / current_price,
+      investmentAmount: amount,
       ppc: current_price,
       WalletId: "1",
     };
 
     const res = await tradingCoins(newCoin);
+
     if (res) return alert(res.message);
     else {
       setAmount(0);
-      return alert("todo ok");
+      alert("todo ok");
+      handleClose();
     }
   }
 
@@ -62,7 +67,7 @@ function ModalCompra({ modals, handleClose, coin }) {
           <section className="compra_container">
             <div>
               <Typography gutterBottom>Saldo disponible:</Typography>
-              <Typography gutterBottom>$000</Typography>
+              <Typography gutterBottom>${availableMoney}</Typography>
             </div>
             <TextField
               id="outlined-basic"
@@ -73,7 +78,10 @@ function ModalCompra({ modals, handleClose, coin }) {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               autoComplete="off"
-              //   error={cantidad > saldo || cantidad < 0}
+              error={availableMoney < amount ? true : false}
+              helperText={
+                availableMoney < amount ? "Saldo insuficiente" : "*Min $10"
+              }
               sx={{ m: "1rem 0", width: "100%" }}
               InputProps={{
                 startAdornment: (
@@ -95,7 +103,7 @@ function ModalCompra({ modals, handleClose, coin }) {
                 variant="contained"
                 color="success"
                 onClick={handleTrading}
-                disabled={amount < 10 ? true : false}
+                disabled={amount < 10 || availableMoney < amount ? true : false}
               >
                 Comprar
               </Button>

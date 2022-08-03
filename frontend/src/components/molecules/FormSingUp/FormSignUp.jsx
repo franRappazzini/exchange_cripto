@@ -5,11 +5,14 @@ import {
   CardHeader,
   TextField,
 } from "@mui/material";
+import { createUser, getAllUsers } from "../../../redux/actions/userActions";
 
 import React from "react";
-import { createUser } from "../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
-function FormSignUp({ newUser, setNewUser }) {
+function FormSignUp({ newUser, setNewUser, setOption }) {
+  const dispatch = useDispatch();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -18,12 +21,13 @@ function FormSignUp({ newUser, setNewUser }) {
     const res = await createUser(newUser);
     // TODO crear modal para esto
     if (res) {
-      console.log(res.response.data.error);
       alert(res.response.data.error);
     } else {
       // TODO reiniciar inputs y setear user
+      dispatch(getAllUsers());
       console.log(res);
       alert("ok");
+      setOption("logIn");
     }
   }
 

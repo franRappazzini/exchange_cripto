@@ -23,6 +23,7 @@ function ModalVenta({ modals, handleClose, coin }) {
       symbol,
       image,
       amount: -amount,
+      investmentAmount: -(amount * current_price),
       ppc: current_price, // TODO sacar, porque en venta creo que no cambiaria
       WalletId: "1",
     };
@@ -31,7 +32,8 @@ function ModalVenta({ modals, handleClose, coin }) {
     if (res) return alert(res.message);
     else {
       setAmount("");
-      return alert("todo ok");
+      alert("todo ok");
+      handleClose();
     }
   }
 

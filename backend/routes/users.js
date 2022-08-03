@@ -19,7 +19,6 @@ users.post("/users", async (req, res) => {
 
 users.get("/users", async (req, res) => {
   try {
-    // TODO ver como incluir compras de esa wallet
     const response = await User.findAll({
       include: { model: Wallet, include: { model: TradingCoin } },
     });
@@ -29,12 +28,14 @@ users.get("/users", async (req, res) => {
   }
 });
 
-// ????
-users.get("/user/:email", async (req, res) => {
-  const { email } = req.params;
+users.get("/users/:id", async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const response = await User.findOne({ where: { email } });
+    const response = await User.findOne({
+      where: { id },
+      include: { model: Wallet, include: { model: TradingCoin } },
+    });
     res.json(response);
   } catch (err) {
     res.status(404).json({ error: err.message });

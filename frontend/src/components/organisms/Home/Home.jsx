@@ -14,31 +14,47 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
+import TableRowHome from "../../molecules/TableRowHome/TableRowHome";
 import { getCoins } from "../../../redux/actions/cryptoActions";
-import { setLogedUser } from "../../../redux/actions/userActions";
+import { getUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { logedUser } = useSelector((state) => state.user);
   const { allCoins } = useSelector((state) => state.crypto);
-
+  const localUser = JSON.parse(localStorage.getItem("logedUser")) || {};
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCoins());
-    dispatch(setLogedUser(JSON.parse(localStorage.getItem("logedUser"))));
+    localUser.id && dispatch(getUser(localUser.id)); // porque necesito el logedUser actualizado
     if (!JSON.parse(localStorage.getItem("logedUser"))) navigate("/"); // si no hay logedUser, volvemos al inicio
-  }, [dispatch, navigate]);
+
+    console.log("home");
+  }, [dispatch, navigate, localUser.id]);
+
+  function totalInvestments() {
+    if (logedUser.Wallet && logedUser.Wallet.TradingCoins) {
+      let investments = 0;
+      logedUser.Wallet.TradingCoins.forEach(
+        (coin) =>
+          (investments =
+            investments +
+            (coin.investmentAmount * coinData(coin.name, "price")) / coin.ppc)
+      );
+
+      return parseFloat(investments.toFixed(2));
+    } else return 0;
+  }
 
   function coinData(name, type) {
     if (allCoins.length) {
       const findCoin = allCoins.find((coin) => coin.name === name);
-      console.log(findCoin);
       if (findCoin) {
         switch (type) {
           case "price":
@@ -74,71 +90,55 @@ function Home() {
 
       <Card elevation={4}>
         <CardContent className="card_saldo">
-          <Typography>Saldo disponible: $000</Typography>
-          <Typography>Mis inversiones: $000</Typography>
-          <Typography>Total: $000</Typography>
+          <Typography>
+            Saldo disponible: $
+            {new Intl.NumberFormat().format(logedUser.Wallet?.availableMoney)}
+          </Typography>
+          <Typography>
+            {/* TODO ir sumando/restando a la wallet a medida que compre/venda ???? */}
+            Mis inversiones: $
+            {new Intl.NumberFormat().format(totalInvestments())}
+          </Typography>
+          <Typography>
+            Total: $
+            {new Intl.NumberFormat().format(
+              logedUser.Wallet?.availableMoney + totalInvestments()
+            )}
+          </Typography>
         </CardContent>
       </Card>
 
-      <Card sx={{ margin: "1rem 0" }} elevation={4} className="card_portfolio">
-        <CardHeader title="Portfolio" />
-        <TableContainer component={Paper} elevation={4}>
-          <Table sx={{ minWidth: 650 }} aria-label="caption table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Coin</TableCell>
-                <TableCell align="center">Cantidad</TableCell>
-                <TableCell align="center">Ultimo precio</TableCell>
-                <TableCell align="center">Var. diaria %</TableCell>
-                <TableCell align="center">Var. diaria $</TableCell>
-                <TableCell align="center">PPC</TableCell>
-                <TableCell align="center">Gan-Per %</TableCell>
-                <TableCell align="center">Gan-Per $</TableCell>
-                <TableCell align="center">Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {logedUser.Wallet &&
-                logedUser.Wallet.TradingCoins.map((coin) => (
-                  // TODO crear nuevo componente
-
-                  <TableRow key={coin.id}>
-                    <TableCell component="th" scope="row">
-                      <Link to={`/coin/${coin.name.toLowerCase()}`}>
-                        {coin.symbol.toUpperCase()}
-                      </Link>
-                    </TableCell>
-                    <TableCell align="center">
-                      {coin.amount.toFixed(8)}
-                    </TableCell>
-                    <TableCell align="center">
-                      $
-                      {new Intl.NumberFormat().format(
-                        coinData(coin.name, "price")
-                      )}
-                    </TableCell>
-                    <TableCell align="center">
-                      {coinData(coin.name, "%day")?.toFixed(2)}%
-                    </TableCell>
-                    <TableCell align="center">
-                      ${coinData(coin.name, "$day")?.toFixed(2)}
-                    </TableCell>
-                    <TableCell align="center">${coin.ppc.toFixed(0)}</TableCell>
-                    <TableCell align="center">porcentaje ganancia %</TableCell>
-                    <TableCell align="center">
-                      ${" "}
-                      {/* TODO crear para model investmentAmount ($ total invertido) */}
-                    </TableCell>
-                    <TableCell align="center">
-                      $
-                      {(coin.amount * coinData(coin.name, "price"))?.toFixed(2)}
-                    </TableCell>
-                  </TableRow>
+      {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 && (
+        <Card
+          sx={{ margin: "1rem 0" }}
+          elevation={4}
+          className="card_portfolio"
+        >
+          <CardHeader title="Portfolio" />
+          <TableContainer component={Paper} elevation={4}>
+            <Table sx={{ minWidth: 650 }} aria-label="caption table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Coin</TableCell>
+                  <TableCell align="center">Cantidad</TableCell>
+                  <TableCell align="center">Ultimo precio</TableCell>
+                  <TableCell align="center">Var. diaria %</TableCell>
+                  <TableCell align="center">Var. diaria $</TableCell>
+                  <TableCell align="center">PPC</TableCell>
+                  <TableCell align="center">Gan-Per %</TableCell>
+                  <TableCell align="center">Gan-Per $</TableCell>
+                  <TableCell align="center">Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {logedUser.Wallet.TradingCoins.map((coin) => (
+                  <TableRowHome key={coin.id} coin={coin} coinData={coinData} />
                 ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Card>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Card>
+      )}
     </main>
   );
 }
