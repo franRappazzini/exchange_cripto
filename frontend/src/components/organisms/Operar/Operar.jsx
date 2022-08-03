@@ -1,22 +1,10 @@
 import "./Operar.scss";
 
-import {
-  Button,
-  CircularProgress,
-  Pagination,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TableRowCoin from "../../molecules/TableRowCoin/TableRowCoin";
+import TableContainerOperar from "../../molecules/TableCointainerOperar/TableContainerOperar";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { setLogedUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
@@ -25,12 +13,9 @@ import { useNavigate } from "react-router-dom";
 function Operar() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState(""); // ????
   const { allCoins, favorites } = useSelector((state) => state.crypto);
-  const [page, setPage] = useState(1);
-  const coinsPerPage = 20;
-  const totalPage = Math.ceil(coins.length / coinsPerPage);
   const localUser = JSON.parse(localStorage.getItem("logedUser")) || {};
+  // const localFavs = JSON.parse(localStorage.getItem("coinsFavorites")) || [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +28,7 @@ function Operar() {
   }, [dispatch, navigate, localUser.id]);
 
   useEffect(() => {
-    allCoins.length > 0 && setCoins(allCoins);
+    if (allCoins.length) setCoins(allCoins);
     if (allCoins.length && search !== "") {
       setCoins(
         allCoins.filter(
@@ -77,77 +62,7 @@ function Operar() {
       </section>
 
       {coins.length > 0 ? (
-        <>
-          {/* TODO pasar a otro componente la TableContainer*/}
-          <TableContainer component={Paper} elevation={4}>
-            <Table sx={{ minWidth: 650 }} aria-label="caption table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell sx={{ fontWeight: 600, fontSize: "0.8rem" }}>
-                    Coin
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    Precio
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    1h
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    24h
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    7d
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    24h volumen
-                  </TableCell>
-                  <TableCell
-                    sx={{ fontWeight: 600, fontSize: "0.8rem" }}
-                    align="right"
-                  >
-                    Market cap
-                  </TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {coins
-                  .slice(
-                    (page - 1) * coinsPerPage,
-                    (page - 1) * coinsPerPage + coinsPerPage
-                  )
-                  .map((coin) => (
-                    <TableRowCoin key={coin.id} coin={coin} />
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <div className="pagination_container">
-            <Pagination
-              count={totalPage}
-              color="primary"
-              onChange={(e, value) => setPage(value)}
-            />
-          </div>
-        </>
+        <TableContainerOperar coins={coins} />
       ) : (
         <div className="loader_container">
           <CircularProgress />
