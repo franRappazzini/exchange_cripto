@@ -14,7 +14,7 @@ import React from "react";
 import { tradingCoins } from "../../../redux/actions/cryptoActions";
 import { useState } from "react";
 
-function ModalCompra({ modals, handleClose, coin, logedUser }) {
+function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
   const [amount, setAmount] = useState("");
   const { id, name, current_price, image, symbol } = coin;
   const availableMoney = logedUser.Wallet?.availableMoney;
@@ -37,6 +37,7 @@ function ModalCompra({ modals, handleClose, coin, logedUser }) {
 
     if (res) return alert(res.message);
     else {
+      updateUser();
       setAmount(0);
       alert("todo ok");
       handleClose();

@@ -11,12 +11,13 @@ import React from "react";
 import { tradingCoins } from "../../../redux/actions/cryptoActions";
 import { useState } from "react";
 
-function ModalVenta({ modals, handleClose, coin }) {
+function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
   const [amount, setAmount] = useState("");
   const { id, name, current_price, image, symbol } = coin;
 
   async function handleTrading() {
     if (current_price * amount < 1) return;
+    if (coinAmount() < amount) return;
 
     const newTrading = {
       name,
@@ -31,10 +32,21 @@ function ModalVenta({ modals, handleClose, coin }) {
     const res = await tradingCoins(newTrading);
     if (res) return alert(res.message);
     else {
+      updateUser();
       setAmount("");
       alert("todo ok");
       handleClose();
     }
+  }
+
+  function coinAmount() {
+    if (logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0) {
+      const findCoin = logedUser.Wallet.TradingCoins.find(
+        (coin) => coin.name === name
+      );
+
+      return findCoin ? parseFloat(findCoin.amount).toFixed(8) : 0;
+    } else return 0;
   }
 
   return (
@@ -61,7 +73,9 @@ function ModalVenta({ modals, handleClose, coin }) {
           <section className="compra_container">
             <div>
               <Typography gutterBottom>Monedas disponibles:</Typography>
-              <Typography gutterBottom>000 {symbol.toUpperCase()}</Typography>
+              <Typography gutterBottom>
+                {coinAmount()} {symbol.toUpperCase()}
+              </Typography>
             </div>
             <TextField
               id="outlined-basic"
@@ -72,7 +86,10 @@ function ModalVenta({ modals, handleClose, coin }) {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               autoComplete="off"
-              //   error={amount > cantDisponibleCripto() || cantidad < 0}
+              error={coinAmount() < amount ? true : false}
+              helperText={
+                coinAmount() < amount ? "Cantidad insuficiente" : "*Min $1"
+              }
               sx={{ m: "1rem 0", width: "100%" }}
               autoFocus
             />

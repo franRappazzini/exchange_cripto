@@ -13,6 +13,7 @@ coins.post("/coins", async (req, res) => {
     });
 
     if (!created) {
+      // si ya existe, actualizo los valores
       coin.amount += amount;
       amount > 0 && (coin.ppc = (coin.ppc + ppc) / 2);
       coin.investmentAmount += parseInt(investmentAmount);
@@ -20,9 +21,10 @@ coins.post("/coins", async (req, res) => {
       coin.amount === 0 ? await coin.destroy() : await coin.save();
     }
 
-    // const wallet = await coin.getWallet();
-    // wallet.totalMoney = coin.investmentAmount;
-    // console.log(wallet);
+    // actualizamos el valor de la wallet
+    const wallet = await coin.getWallet();
+    wallet.availableMoney -= investmentAmount;
+    await wallet.save();
 
     res.status(201).json({ success: "Operado con exito!" });
   } catch (err) {
