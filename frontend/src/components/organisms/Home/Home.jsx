@@ -1,9 +1,7 @@
 import "./Home.scss";
 
 import {
-  Button,
   Card,
-  CardContent,
   CardHeader,
   Paper,
   Table,
@@ -12,16 +10,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import AvailableBalance from "../../molecules/AvailableBalance/AvailableBalance";
+import MoneyBtns from "../../molecules/MoneyBtns/MoneyBtns";
 import React from "react";
 import TableRowHome from "../../molecules/TableRowHome/TableRowHome";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { setLogedUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { logedUser } = useSelector((state) => state.user);
@@ -37,20 +36,6 @@ function Home() {
 
     console.log("home");
   }, [dispatch, navigate, localUser.id]);
-
-  function totalInvestments() {
-    if (logedUser.Wallet && logedUser.Wallet.TradingCoins) {
-      let investments = 0;
-      logedUser.Wallet.TradingCoins.forEach(
-        (coin) =>
-          (investments =
-            investments +
-            (coin.investmentAmount * coinData(coin.name, "price")) / coin.ppc)
-      );
-
-      return parseFloat(investments.toFixed(2));
-    } else return 0;
-  }
 
   function coinData(name, type) {
     if (allCoins.length) {
@@ -72,43 +57,9 @@ function Home() {
 
   return (
     <main className="home_component">
-      <section className="btns_container">
-        <Button
-          color="primary"
-          variant="outlined"
-          onClick={() => console.log(logedUser)}
-        >
-          Ingresar dinero
-        </Button>
-        <Link to={"/operar"}>
-          <Button color="success" variant="contained">
-            INVERTIR
-          </Button>
-        </Link>
-        <Button color="error" variant="outlined">
-          Retirar dinero
-        </Button>
-      </section>
+      <MoneyBtns />
 
-      <Card elevation={4}>
-        <CardContent className="card_saldo">
-          <Typography>
-            Saldo disponible: $
-            {new Intl.NumberFormat().format(logedUser.Wallet?.availableMoney)}
-          </Typography>
-          <Typography>
-            {/* TODO ir sumando/restando a la wallet a medida que compre/venda ???? */}
-            Mis inversiones: $
-            {new Intl.NumberFormat().format(totalInvestments())}
-          </Typography>
-          <Typography>
-            Total: $
-            {new Intl.NumberFormat().format(
-              logedUser.Wallet?.availableMoney + totalInvestments()
-            )}
-          </Typography>
-        </CardContent>
-      </Card>
+      <AvailableBalance logedUser={logedUser} coinData={coinData} />
 
       {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 && (
         <Card

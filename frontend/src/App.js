@@ -30,6 +30,8 @@ function App() {
         <Route path="/operar" element={<Operar />} />
 
         <Route path="/coin/:idCoin" element={<CoinDetail />} />
+
+        {/* TODO page 404 */}
       </Routes>
     </>
   );
