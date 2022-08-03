@@ -81,29 +81,34 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 1rem;
-    // justify-content: flex-end;
     align-items: flex-start;
-    //     width: 100%;
 
-    .card-content_container {
-      div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid grey;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
+    .card_container {
+      .card-content_container {
+        div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid grey;
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
 
-        .span_grey {
-          color: gray;
-        }
+          .span_grey {
+            color: gray;
+          }
 
-        .span_number {
-          font-weight: 500;
+          .span_number {
+            font-weight: 500;
+          }
         }
       }
     }
+  }
+
+  .loader_container {
+    display: flex;
+    justify-content: center;
   }
 
   // tablet

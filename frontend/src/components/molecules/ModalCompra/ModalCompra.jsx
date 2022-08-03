@@ -61,7 +61,9 @@ function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
 
             <div className="mas-info_container">
               <p>${new Intl.NumberFormat().format(current_price)}</p>
-              <Link to={`/coin/${id}`}>Ver mas info.</Link>
+              <Link to={`/coin/${id}`} onClick={handleClose}>
+                Ver mas info.
+              </Link>
             </div>
           </section>
 

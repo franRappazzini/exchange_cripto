@@ -52,39 +52,16 @@
   }
 }
 
-// @media only screen and (max-width: 768px) {
-//   .p__info {
-//     display: flex;
-//     justify-content: center;
-//   }
-//   .p__info a {
-//     width: fit-content;
-//   }
+@media only screen and (max-width: 500px) {
+  .compra_container {
+    margin: 0;
+  }
 
-//   .compra__container {
-//     margin: 1rem 0;
-//   }
-
-//   .datos__cripto {
-//     flex-direction: column;
-//   }
-
-//   .datos__cripto h1 {
-//     margin-bottom: 0;
-//   }
-//   .datos__cripto p {
-//     margin-top: 0;
-//   }
-
-//   .datos__transaccion {
-//     width: 100%;
-//   }
-
-//   .confirmar__container {
-//     width: 100%;
-//   }
-
-//   .btns__container-cripto {
-//     width: 100%;
-//   }
-// }
+  .coin_container {
+    :first-child {
+      h1 {
+        margin: 0;
+      }
+    }
+  }
+}

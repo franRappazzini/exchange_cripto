@@ -1,6 +1,7 @@
 import "./Operar.scss";
 
 import {
+  Button,
   CircularProgress,
   Pagination,
   Paper,
@@ -10,6 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,8 +23,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Operar() {
-  const { allCoins } = useSelector((state) => state.crypto);
-  const coins = allCoins.length > 0 ? allCoins : [];
+  const [coins, setCoins] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(""); // ????
+  const { allCoins, favorites } = useSelector((state) => state.crypto);
   const [page, setPage] = useState(1);
   const coinsPerPage = 20;
   const totalPage = Math.ceil(coins.length / coinsPerPage);
@@ -38,10 +42,43 @@ function Operar() {
     console.log("operar");
   }, [dispatch, navigate, localUser.id]);
 
+  useEffect(() => {
+    allCoins.length > 0 && setCoins(allCoins);
+    if (allCoins.length && search !== "") {
+      setCoins(
+        allCoins.filter(
+          (coin) =>
+            coin.name.toLowerCase().includes(search.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+
+    console.log("search");
+  }, [allCoins, search]);
+
   return (
     <main className="operar_component">
+      <section className="search_section">
+        <TextField
+          id="standard-basic"
+          label="Buscar"
+          variant="standard"
+          autoComplete="off"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="btns_container">
+          <Button variant="outlined">Todas</Button>
+          <Button variant="outlined" color="warning">
+            Favoritas
+          </Button>
+        </div>
+      </section>
+
       {coins.length > 0 ? (
         <>
+          {/* TODO pasar a otro componente la TableContainer*/}
           <TableContainer component={Paper} elevation={4}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead>

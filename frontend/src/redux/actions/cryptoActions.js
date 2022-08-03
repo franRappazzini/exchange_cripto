@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export const GET_COINS = "GET_COINS";
+export const ADD_FAVORITE_COIN = "ADD_FAVORITE_COIN";
+export const REMOVE_FAVORITE_COIN = "REMOVE_FAVORITE_COIN";
 
 export function getCoins() {
   return async (dispatch) => {
@@ -22,4 +24,12 @@ export async function tradingCoins(coin) {
   } catch (err) {
     return err;
   }
+}
+
+export function addFavoriteCoin(coin) {
+  return (dispatch) => dispatch({ type: ADD_FAVORITE_COIN, payload: coin });
+}
+
+export function removeFavoriteCoin(coin) {
+  return (dispatch) => dispatch({ type: REMOVE_FAVORITE_COIN, payload: coin });
 }

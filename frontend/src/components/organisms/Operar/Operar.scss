@@ -1,6 +1,17 @@
 .operar_component {
   padding: 2rem 2rem 0 2rem;
 
+  .search_section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .btns_container {
+      :first-child {
+        margin: 0 1rem 0 2rem;
+      }
+    }
+  }
   .link_name {
     color: whitesmoke;
     transition: 0.1s;
