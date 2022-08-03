@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const GET_ONE_USER = "GET_ONE_USER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
-export const GET_USER = "GET_USER";
+export const SET_LOGED_USER = "SET_LOGED_USER";
 
 const URL = "http://localhost:3001/users";
 
@@ -25,14 +25,14 @@ export function getAllUsers() {
   };
 }
 
-export function getUser(user) {
+export function setLogedUser(user) {
   return async (dispatch) => {
     if (typeof user === "object") {
-      dispatch({ type: GET_USER, payload: user });
+      dispatch({ type: SET_LOGED_USER, payload: user });
     } else {
       try {
         const res = await axios.get(`${URL}/${user}`);
-        dispatch({ type: GET_USER, payload: res.data });
+        dispatch({ type: SET_LOGED_USER, payload: res.data });
       } catch (err) {
         return err;
       }

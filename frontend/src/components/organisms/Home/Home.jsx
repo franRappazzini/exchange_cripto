@@ -14,14 +14,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
 import TableRowHome from "../../molecules/TableRowHome/TableRowHome";
 import { getCoins } from "../../../redux/actions/cryptoActions";
-import { getUser } from "../../../redux/actions/userActions";
+import { setLogedUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { logedUser } = useSelector((state) => state.user);
@@ -32,7 +32,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getCoins());
-    localUser.id && dispatch(getUser(localUser.id)); // porque necesito el logedUser actualizado
+    localUser.id && dispatch(setLogedUser(localUser.id)); // porque necesito el logedUser actualizado
     if (!JSON.parse(localStorage.getItem("logedUser"))) navigate("/"); // si no hay logedUser, volvemos al inicio
 
     console.log("home");
@@ -80,9 +80,11 @@ function Home() {
         >
           Ingresar dinero
         </Button>
-        <Button color="success" variant="contained">
-          INVERTIR
-        </Button>
+        <Link to={"/operar"}>
+          <Button color="success" variant="contained">
+            INVERTIR
+          </Button>
+        </Link>
         <Button color="error" variant="outlined">
           Retirar dinero
         </Button>

@@ -88,7 +88,9 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
               autoComplete="off"
               error={coinAmount() < amount ? true : false}
               helperText={
-                coinAmount() < amount ? "Cantidad insuficiente" : "*Min $1"
+                coinAmount() < amount
+                  ? "Cantidad insuficiente"
+                  : "*Recibir min $1"
               }
               sx={{ m: "1rem 0", width: "100%" }}
               autoFocus

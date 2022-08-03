@@ -2,6 +2,7 @@ import { GET_COINS } from "../actions/cryptoActions";
 
 const initialState = {
   allCoins: [],
+  favorites: [],
 };
 
 export default function cryptoReducer(state = initialState, action) {

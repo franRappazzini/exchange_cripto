@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TableRowCoin from "../../molecules/TableRowCoin/TableRowCoin";
 import { getCoins } from "../../../redux/actions/cryptoActions";
-import { getUser } from "../../../redux/actions/userActions";
+import { setLogedUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ function Operar() {
 
   useEffect(() => {
     dispatch(getCoins());
-    localUser.id && dispatch(getUser(localUser.id)); // porque necesito el logedUser actualizado
+    localUser.id && dispatch(setLogedUser(localUser.id)); // porque necesito el logedUser actualizado
     if (!JSON.parse(localStorage.getItem("logedUser"))) navigate("/"); // si no hay logedUser, volvemos al inicio
 
     console.log("operar");

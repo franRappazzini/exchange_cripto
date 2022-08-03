@@ -10,7 +10,9 @@ function Header({ setOption }) {
 
   return (
     <header className="header_component">
-      <h1>Header</h1>
+      <Link to="/home">
+        <h1>Header</h1>
+      </Link>
       <div className="btn_container">
         <Button
           variant="contained"

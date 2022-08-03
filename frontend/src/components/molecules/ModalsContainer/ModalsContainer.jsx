@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalCompra from "../ModalCompra/ModalCompra";
 import ModalVenta from "../ModalVenta/ModalVenta";
 import React from "react";
-import { getUser } from "../../../redux/actions/userActions";
+import { setLogedUser } from "../../../redux/actions/userActions";
 
 function ModalsContainer({ modals, setModals, coin }) {
   const { logedUser } = useSelector((state) => state.user);
@@ -11,7 +11,7 @@ function ModalsContainer({ modals, setModals, coin }) {
   const dispatch = useDispatch();
 
   function updateUser() {
-    dispatch(getUser(localUser.id));
+    dispatch(setLogedUser(localUser.id));
   }
 
   function handleClose() {

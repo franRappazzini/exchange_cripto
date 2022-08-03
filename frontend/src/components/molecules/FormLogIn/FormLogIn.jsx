@@ -5,7 +5,7 @@ import {
   CardHeader,
   TextField,
 } from "@mui/material";
-import { getAllUsers, getUser } from "../../../redux/actions/userActions";
+import { getAllUsers, setLogedUser } from "../../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
@@ -32,7 +32,7 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
       );
 
       if (user) {
-        dispatch(getUser(user));
+        dispatch(setLogedUser(user));
         localStorage.setItem("logedUser", JSON.stringify(user));
         setUserLogIn({ email: "", password: "" });
         navigate("/home");
