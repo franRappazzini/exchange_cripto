@@ -9,7 +9,7 @@ import { getAllUsers, setLogedUser } from "../../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
-import { hash } from "../../utils/functions";
+import { hash } from "../../../utils/functions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

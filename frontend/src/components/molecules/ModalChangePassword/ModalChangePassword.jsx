@@ -15,7 +15,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import React from "react";
 import { changePassword } from "../../../redux/actions/userActions";
-import { hash } from "../../utils/functions";
+import { hash } from "../../../utils/functions";
 import { useState } from "react";
 
 function ModalChangePassword({ modal, setModal, id, password, updateUser }) {

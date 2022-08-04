@@ -4,6 +4,8 @@ import { Button } from "@mui/material";
 import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
 import { Link } from "react-router-dom";
 import React from "react";
+import { TickerTape } from "react-tradingview-embed";
+import { symbols } from "../../../utils/constants";
 
 function Main({ setOption }) {
   return (
@@ -12,13 +14,25 @@ function Main({ setOption }) {
 
       <main className="main_component">
         <section className="section_container">
-          <h1 className="h1_text">INVERTI EN LAS MEJORES CRIPTO DEL MOMENTO</h1>
-          <p className="p_text">
-            Invertí y obtené rendimientos a corto/largo plazo.
-          </p>
-          <Link to="/home">
-            <Button variant="outlined">REGISTRARSE</Button>
-          </Link>
+          <div className="div--margin-bottom">
+            <h1 className="h1_text">
+              INVERTI EN LAS MEJORES CRIPTO DEL MOMENTO
+            </h1>
+            <p className="p_text">
+              Invertí y obtené rendimientos a corto/largo plazo.
+            </p>
+            <Link to="/home">
+              <Button variant="outlined">REGISTRARSE</Button>
+            </Link>
+          </div>
+
+          <TickerTape
+            widgetProps={{
+              symbols: symbols,
+              locale: "es",
+              displayMode: "adaptive",
+            }}
+          />
         </section>
         <section className="section_container--flex">
           <div>
@@ -36,7 +50,7 @@ function Main({ setOption }) {
           <div>
             <h1 className="h1_text">SIN COMISIONES!</h1>
             <p className="p_text">
-              Si, leiste bien. El primer broker que no te cobra NADA por
+              Si, leiste bien. El primer exchange que no te cobra NADA por
               ingresar/retirar dinero o comprar/vender cualquier activo.
             </p>
             <Button variant="outlined">COMPRAR SIN COMISION</Button>
