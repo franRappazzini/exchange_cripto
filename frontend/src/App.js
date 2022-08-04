@@ -3,10 +3,10 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
 import CoinDetail from "./components/organisms/CoinDetail/CoinDetail";
+import Coins from "./components/organisms/Coins/Coins";
 import Header from "./components/molecules/Header/Header";
 import Home from "./components/organisms/Home/Home";
 import Main from "./components/organisms/Main/Main";
-import Operar from "./components/organisms/Operar/Operar";
 import SignIn from "./components/organisms/SignIn/SignIn";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ function App() {
 
         <Route path="/home" element={<Home />} />
 
-        <Route path="/operar" element={<Operar />} />
+        <Route path="/coins" element={<Coins />} />
 
         <Route path="/coin/:idCoin" element={<CoinDetail />} />
 

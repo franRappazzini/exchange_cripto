@@ -57,7 +57,9 @@ function TableRowCoin({ coin }) {
         </TableCell>
       </TableRow>
 
-      <ModalForCoin modals={modals} setModals={setModals} coin={coin} />
+      {(modals.buy || modals.sell) && (
+        <ModalForCoin modals={modals} setModals={setModals} coin={coin} />
+      )}
     </>
   );
 }

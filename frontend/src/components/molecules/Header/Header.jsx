@@ -26,7 +26,7 @@ function Header({ setOption }) {
         >
           INGRESAR
         </Button>
-        <Link to="/operar">
+        <Link to="/coins">
           <Button variant="outlined">OPERAR</Button>
         </Link>
       </div>

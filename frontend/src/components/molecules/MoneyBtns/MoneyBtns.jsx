@@ -17,7 +17,7 @@ function MoneyBtns() {
         >
           Ingresar dinero
         </Button>
-        <Link to={"/operar"}>
+        <Link to={"/coins"}>
           <Button color="success" variant="contained">
             INVERTIR
           </Button>

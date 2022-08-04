@@ -14,6 +14,7 @@ import { useState } from "react";
 function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
   const [amount, setAmount] = useState("");
   const { id, name, current_price, image, symbol } = coin;
+  const walletId = logedUser.Wallet.id;
 
   async function handleTrading() {
     if (current_price * amount < 1) return;
@@ -26,7 +27,7 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
       amount: -amount,
       investmentAmount: -(amount * current_price),
       ppc: current_price, // TODO sacar, porque en venta creo que no cambiaria
-      WalletId: "1",
+      WalletId: walletId,
     };
 
     const res = await tradingCoins(newTrading);

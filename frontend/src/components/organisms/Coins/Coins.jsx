@@ -1,4 +1,4 @@
-import "./Operar.scss";
+import "./Coins.scss";
 
 import { Button, CircularProgress, TextField } from "@mui/material";
 import React, { useState } from "react";
@@ -10,7 +10,7 @@ import { setLogedUser } from "../../../redux/actions/userActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Operar() {
+function Coins() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
   const { allCoins, favorites } = useSelector((state) => state.crypto);
@@ -72,4 +72,4 @@ function Operar() {
   );
 }
 
-export default Operar;
+export default Coins;
