@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import FormLogIn from "../../molecules/FormLogIn/FormLogIn";
 import FormSignUp from "../../molecules/FormSingUp/FormSignUp";
+import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
 
 function SignIn({ option, setOption }) {
   const [userLogIn, setUserLogIn] = useState({ email: "", password: "" });
@@ -20,27 +21,33 @@ function SignIn({ option, setOption }) {
   }
 
   return (
-    <main className="sign-in_component">
-      <div
-        className="backgroud_black"
-        style={option === "logIn" ? { right: 0 } : { left: 0 }}
-      >
-        <p>
-          {option === "logIn" ? "Si no tienes cuenta," : "Si ya tienes cuenta,"}
-          <Button onClick={handleClick}>
-            {option === "logIn" ? "registrate." : "inicia sesion."}
-          </Button>
-        </p>
-      </div>
+    <>
+      <HeaderMain setOption={setOption} />
 
-      <FormLogIn userLogIn={userLogIn} setUserLogIn={setUserLogIn} />
+      <main className="sign-in_component">
+        <div
+          className="backgroud_black"
+          style={option === "logIn" ? { right: 0 } : { left: 0 }}
+        >
+          <p>
+            {option === "logIn"
+              ? "Si no tienes cuenta,"
+              : "Si ya tienes cuenta,"}
+            <Button onClick={handleClick}>
+              {option === "logIn" ? "registrate." : "inicia sesion."}
+            </Button>
+          </p>
+        </div>
 
-      <FormSignUp
-        newUser={newUser}
-        setNewUser={setNewUser}
-        setOption={setOption}
-      />
-    </main>
+        <FormLogIn userLogIn={userLogIn} setUserLogIn={setUserLogIn} />
+
+        <FormSignUp
+          newUser={newUser}
+          setNewUser={setNewUser}
+          setOption={setOption}
+        />
+      </main>
+    </>
   );
 }
 

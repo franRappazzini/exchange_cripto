@@ -39,7 +39,7 @@ function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
     if (res) return alert(res.message);
     else {
       updateUser();
-      alert("todo ok");
+      alert("todo ok"); // TODO alert de mui
       handleClose();
     }
   }

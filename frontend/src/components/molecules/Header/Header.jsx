@@ -1,34 +1,65 @@
 import "./Header.scss";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Button, SwipeableDrawer } from "@mui/material";
+import { Close, Menu } from "@mui/icons-material";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
-import { Button } from "@mui/material";
-import React from "react";
-
-function Header({ setOption }) {
+function Header() {
+  const [burger, setBurger] = useState(false);
   const navigate = useNavigate();
+
+  function toggleDrawer(option) {
+    setBurger(option);
+  }
+
+  function handleLogOut() {
+    localStorage.removeItem("logedUser");
+    navigate("/");
+  }
 
   return (
     <header className="header_component">
       <Link to="/home">
-        <h1>Header</h1>
+        <h1>Home</h1>
       </Link>
-      <div className="btn_container">
-        <Button
-          variant="contained"
-          onClick={() => navigate("/sign-in", setOption("signUp"))}
-        >
-          REGISTRARSE
+
+      <div>
+        <Button onClick={() => toggleDrawer(true)}>
+          {burger ? <Close /> : <Menu />}
         </Button>
-        <Button
-          variant="outlined"
-          onClick={() => navigate("/sign-in", setOption("logIn"))}
+        <SwipeableDrawer
+          anchor="right"
+          open={burger}
+          onClose={() => toggleDrawer(false)}
+          onOpen={() => toggleDrawer(true)}
         >
-          INGRESAR
-        </Button>
-        <Link to="/coins">
-          <Button variant="outlined">OPERAR</Button>
-        </Link>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              minWidth: "25vw",
+              p: "1rem",
+              gridGap: "0.5rem",
+            }}
+          >
+            <NavLink to={"/home"}>
+              <Button variant="text">Porfolio</Button>
+            </NavLink>
+            <Link to={"/coins"}>
+              <Button variant="text">Coins</Button>
+            </Link>
+            <Link to={"/coins"}>
+              <Button variant="text">Mi cuenta</Button>
+            </Link>
+
+            <div>
+              <Button variant="text" color="error" onClick={handleLogOut}>
+                Cerrar sesion
+              </Button>
+            </div>
+          </Box>
+        </SwipeableDrawer>
       </div>
     </header>
   );

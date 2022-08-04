@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 
 import CoinDetail from "./components/organisms/CoinDetail/CoinDetail";
 import Coins from "./components/organisms/Coins/Coins";
-import Header from "./components/molecules/Header/Header";
 import Home from "./components/organisms/Home/Home";
 import Main from "./components/organisms/Main/Main";
 import SignIn from "./components/organisms/SignIn/SignIn";
@@ -15,10 +14,8 @@ function App() {
 
   return (
     <>
-      <Header setOption={setOption} />
-
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main setOption={setOption} />} />
 
         <Route
           path="/sign-in"

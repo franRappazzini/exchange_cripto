@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import AdvancedChartInfo from "../../molecules/AdvancedChartInfo/AdvancedChartInfo";
 import CoinAdvancedDetails from "../../molecules/CoinAdvancedDetails/CoinAdvancedDetails";
+import Header from "../../molecules/Header/Header";
 import ModalsContainer from "../../molecules/ModalsContainer/ModalsContainer";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { setLogedUser } from "../../../redux/actions/userActions";
@@ -32,30 +33,38 @@ function CoinDetail() {
   }, [dispatch, localUser.id, navigate]);
 
   return (
-    <main className="coin-detail_component">
-      <Breadcrumbs aria-label="breadcrumb" className="breadcrumb_container">
-        <Link to="/operar">Coins</Link>
-        <Typography color="text.secondary">{coin?.name}</Typography>
-      </Breadcrumbs>
+    <>
+      <Header />
 
-      {Object.keys(coin).length > 0 ? (
-        <>
-          <CoinAdvancedDetails
-            coin={coin}
-            modals={modals}
-            setModals={setModals}
-          />
+      <main className="coin-detail_component">
+        <Breadcrumbs aria-label="breadcrumb" className="breadcrumb_container">
+          <Link to="/coins">Coins</Link>
+          <Typography color="text.secondary">{coin?.name}</Typography>
+        </Breadcrumbs>
 
-          <AdvancedChartInfo coin={coin} />
+        {Object.keys(coin).length > 0 ? (
+          <>
+            <CoinAdvancedDetails
+              coin={coin}
+              modals={modals}
+              setModals={setModals}
+            />
 
-          <ModalsContainer modals={modals} setModals={setModals} coin={coin} />
-        </>
-      ) : (
-        <div className="loader_container">
-          <CircularProgress />
-        </div>
-      )}
-    </main>
+            <AdvancedChartInfo coin={coin} />
+
+            <ModalsContainer
+              modals={modals}
+              setModals={setModals}
+              coin={coin}
+            />
+          </>
+        ) : (
+          <div className="loader_container">
+            <CircularProgress />
+          </div>
+        )}
+      </main>
+    </>
   );
 }
 

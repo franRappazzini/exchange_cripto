@@ -1,4 +1,4 @@
-.header_component {
+.main-header_component {
   background-color: #1e1e1e;
   padding: 2rem;
   display: flex;
@@ -13,9 +13,7 @@
     margin: 0;
   }
 
-  .burger_container {
-    a {
-      display: flex;
-    }
+  .btn_container button {
+    margin: 0 0.5rem;
   }
 }

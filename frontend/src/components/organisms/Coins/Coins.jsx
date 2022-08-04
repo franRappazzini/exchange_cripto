@@ -4,6 +4,7 @@ import { Button, CircularProgress, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Header from "../../molecules/Header/Header";
 import TableContainerOperar from "../../molecules/TableCointainerOperar/TableContainerOperar";
 import { getCoins } from "../../../redux/actions/cryptoActions";
 import { setLogedUser } from "../../../redux/actions/userActions";
@@ -43,32 +44,36 @@ function Coins() {
   }, [allCoins, search]);
 
   return (
-    <main className="operar_component">
-      <section className="search_section">
-        <TextField
-          id="standard-basic"
-          label="Buscar"
-          variant="standard"
-          autoComplete="off"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <div className="btns_container">
-          <Button variant="outlined">Todas</Button>
-          <Button variant="outlined" color="warning">
-            Favoritas
-          </Button>
-        </div>
-      </section>
+    <>
+      <Header />
 
-      {coins.length > 0 ? (
-        <TableContainerOperar coins={coins} />
-      ) : (
-        <div className="loader_container">
-          <CircularProgress />
-        </div>
-      )}
-    </main>
+      <main className="operar_component">
+        <section className="search_section">
+          <TextField
+            id="standard-basic"
+            label="Buscar"
+            variant="standard"
+            autoComplete="off"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <div className="btns_container">
+            <Button variant="outlined">Todas</Button>
+            <Button variant="outlined" color="warning">
+              Favoritas
+            </Button>
+          </div>
+        </section>
+
+        {coins.length > 0 ? (
+          <TableContainerOperar coins={coins} />
+        ) : (
+          <div className="loader_container">
+            <CircularProgress />
+          </div>
+        )}
+      </main>
+    </>
   );
 }
 

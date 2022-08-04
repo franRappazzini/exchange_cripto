@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import AvailableBalance from "../../molecules/AvailableBalance/AvailableBalance";
+import Header from "../../molecules/Header/Header";
 import MoneyBtns from "../../molecules/MoneyBtns/MoneyBtns";
 import React from "react";
 import TableRowHome from "../../molecules/TableRowHome/TableRowHome";
@@ -56,43 +57,51 @@ function Home() {
   }
 
   return (
-    <main className="home_component">
-      <MoneyBtns />
+    <>
+      <Header />
 
-      <AvailableBalance logedUser={logedUser} coinData={coinData} />
+      <main className="home_component">
+        <MoneyBtns />
 
-      {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 && (
-        <Card
-          sx={{ margin: "1rem 0" }}
-          elevation={4}
-          className="card_portfolio"
-        >
-          <CardHeader title="Portfolio" />
-          <TableContainer component={Paper} elevation={4}>
-            <Table sx={{ minWidth: 650 }} aria-label="caption table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Coin</TableCell>
-                  <TableCell align="center">Cantidad</TableCell>
-                  <TableCell align="center">Ultimo precio</TableCell>
-                  <TableCell align="center">Var. diaria %</TableCell>
-                  <TableCell align="center">Var. diaria $</TableCell>
-                  <TableCell align="center">PPC</TableCell>
-                  <TableCell align="center">Gan-Per %</TableCell>
-                  <TableCell align="center">Gan-Per $</TableCell>
-                  <TableCell align="center">Total</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {logedUser.Wallet.TradingCoins.map((coin) => (
-                  <TableRowHome key={coin.id} coin={coin} coinData={coinData} />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Card>
-      )}
-    </main>
+        <AvailableBalance logedUser={logedUser} coinData={coinData} />
+
+        {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 && (
+          <Card
+            sx={{ margin: "1rem 0" }}
+            elevation={4}
+            className="card_portfolio"
+          >
+            <CardHeader title="Portfolio" />
+            <TableContainer component={Paper} elevation={4}>
+              <Table sx={{ minWidth: 650 }} aria-label="caption table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Coin</TableCell>
+                    <TableCell align="center">Cantidad</TableCell>
+                    <TableCell align="center">Ultimo precio</TableCell>
+                    <TableCell align="center">Var. diaria %</TableCell>
+                    <TableCell align="center">Var. diaria $</TableCell>
+                    <TableCell align="center">PPC</TableCell>
+                    <TableCell align="center">Gan-Per %</TableCell>
+                    <TableCell align="center">Gan-Per $</TableCell>
+                    <TableCell align="center">Total</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {logedUser.Wallet.TradingCoins.map((coin) => (
+                    <TableRowHome
+                      key={coin.id}
+                      coin={coin}
+                      coinData={coinData}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        )}
+      </main>
+    </>
   );
 }
 
