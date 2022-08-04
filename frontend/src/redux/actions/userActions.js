@@ -39,3 +39,11 @@ export function setLogedUser(user) {
     }
   };
 }
+
+export async function changePassword(userId, password) {
+  try {
+    await axios.put(`${URL}/${userId}`, { password });
+  } catch (err) {
+    return err;
+  }
+}

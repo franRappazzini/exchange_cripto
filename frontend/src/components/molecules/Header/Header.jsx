@@ -38,7 +38,7 @@ function Header() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              minWidth: "25vw",
+              minWidth: window.innerWidth < 821 ? "65vw" : "25vw",
               p: "1rem",
               gridGap: "0.5rem",
             }}
@@ -49,7 +49,7 @@ function Header() {
             <Link to={"/coins"}>
               <Button variant="text">Coins</Button>
             </Link>
-            <Link to={"/coins"}>
+            <Link to={"/account"}>
               <Button variant="text">Mi cuenta</Button>
             </Link>
 

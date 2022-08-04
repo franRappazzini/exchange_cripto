@@ -9,6 +9,7 @@ import { getAllUsers, setLogedUser } from "../../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
+import { hash } from "../../utils/functions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -42,18 +43,6 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
 
   function handleChange(e) {
     setUserLogIn({ ...userLogIn, [e.target.name]: e.target.value });
-  }
-
-  // https://remarkablemark.org/blog/2021/08/29/javascript-generate-sha-256-hexadecimal-hash/#browser
-  async function hash(pass) {
-    const utf8 = new TextEncoder().encode(pass);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((bytes) => bytes.toString(16).padStart(2, "0"))
-      .join("");
-
-    return hashHex;
   }
 
   return (

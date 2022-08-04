@@ -2,6 +2,7 @@ import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
 
+import Account from "./components/organisms/Account/Account";
 import CoinDetail from "./components/organisms/CoinDetail/CoinDetail";
 import Coins from "./components/organisms/Coins/Coins";
 import Home from "./components/organisms/Home/Home";
@@ -27,6 +28,8 @@ function App() {
         <Route path="/coins" element={<Coins />} />
 
         <Route path="/coin/:idCoin" element={<CoinDetail />} />
+
+        <Route path="/account" element={<Account />} />
 
         {/* TODO page 404 */}
       </Routes>

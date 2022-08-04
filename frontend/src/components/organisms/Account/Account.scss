@@ -1,0 +1,15 @@
+.account_component {
+  padding: 2rem 2rem 0 2rem;
+  display: flex;
+  justify-content: center;
+
+  .account-card_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+
+    button {
+      width: fit-content;
+    }
+  }
+}

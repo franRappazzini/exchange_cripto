@@ -42,4 +42,19 @@ users.get("/users/:id", async (req, res) => {
   }
 });
 
+users.put("/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  try {
+    const response = await User.findByPk(id);
+    response.password = password;
+    await response.save();
+
+    res.status(201).json({ success: "Contraseña cambiada con exito!" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 module.exports = users;
