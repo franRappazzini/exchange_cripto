@@ -38,7 +38,7 @@ function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
     if (res) return alert(res.message);
     else {
       updateUser();
-      setAmount(0);
+      // setAmount(0);
       alert("todo ok");
       handleClose();
     }

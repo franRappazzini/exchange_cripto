@@ -23,6 +23,7 @@ function ModalsMoneyContainer({ modals, setModals }) {
         modals={modals}
         handleClose={handleClose}
         updateUser={updateUser}
+        logedUser={logedUser}
       />
     </>
   );
