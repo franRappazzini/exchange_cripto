@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import ModalIngresoDinero from "../ModalIngresoDinero/ModalIngresoDinero";
+import ModalRetiroDinero from "../ModalRetiroDinero/ModalRetiroDinero";
 import React from "react";
 import { setLogedUser } from "../../../redux/actions/userActions";
 
@@ -14,17 +15,27 @@ function ModalsMoneyContainer({ modals, setModals }) {
   }
 
   function handleClose() {
-    setModals({ income: false, withdrawal: false });
+    setModals({ deposit: false, withdrawal: false });
   }
 
   return (
     <>
-      <ModalIngresoDinero
-        modals={modals}
-        handleClose={handleClose}
-        updateUser={updateUser}
-        logedUser={logedUser}
-      />
+      {modals.deposit && (
+        <ModalIngresoDinero
+          modals={modals}
+          handleClose={handleClose}
+          updateUser={updateUser}
+          logedUser={logedUser}
+        />
+      )}
+      {modals.withdrawal && (
+        <ModalRetiroDinero
+          modals={modals}
+          handleClose={handleClose}
+          updateUser={updateUser}
+          logedUser={logedUser}
+        />
+      )}
     </>
   );
 }

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ModalsMoneyContainer from "../ModalsMoneyContainer/ModalsMoneyContainer";
 
 function MoneyBtns() {
-  const [modals, setModals] = useState({ income: false, withdrawal: false });
+  const [modals, setModals] = useState({ deposit: false, withdrawal: false });
 
   return (
     <>
@@ -13,7 +13,7 @@ function MoneyBtns() {
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setModals({ ...modals, income: true })}
+          onClick={() => setModals({ ...modals, deposit: true })}
         >
           Ingresar dinero
         </Button>
@@ -22,12 +22,16 @@ function MoneyBtns() {
             INVERTIR
           </Button>
         </Link>
-        <Button color="error" variant="outlined">
+        <Button
+          color="error"
+          variant="outlined"
+          onClick={() => setModals({ ...modals, withdrawal: true })}
+        >
           Retirar dinero
         </Button>
       </section>
 
-      {modals.income && (
+      {(modals.deposit || modals.withdrawal) && (
         <ModalsMoneyContainer modals={modals} setModals={setModals} />
       )}
     </>

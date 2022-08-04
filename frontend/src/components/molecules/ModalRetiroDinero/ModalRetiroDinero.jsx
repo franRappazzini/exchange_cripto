@@ -1,5 +1,3 @@
-import "./ModalIngresoDinero.scss";
-
 import {
   Button,
   Dialog,
@@ -7,24 +5,23 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import React, { useState } from "react";
 
-import React from "react";
 import { moneyTransfer } from "../../../redux/actions/walletActions";
-import { useState } from "react";
 
-function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
+function ModalRetiroDinero({ modals, handleClose, logedUser, updateUser }) {
   const [amount, setAmount] = useState(1);
-  const walletId = logedUser.Wallet.id;
+  const { id, availableMoney } = logedUser.Wallet;
 
-  async function handleDeposit() {
-    if (amount < 1 || amount > 10000) return;
+  async function handleWithdraw() {
+    if (amount < 1 || amount > availableMoney) return;
 
-    const res = await moneyTransfer(walletId, parseFloat(amount));
+    const res = await moneyTransfer(id, parseFloat(-amount));
 
     if (res) alert(res.message);
     else {
       updateUser();
-      alert("ingreso ok"); // TODO crear modal para esto
+      alert("retiro ok"); // TODO crear modal para esto
       handleClose();
     }
   }
@@ -32,13 +29,13 @@ function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
   return (
     <Dialog
       onClose={handleClose}
-      open={modals.deposit}
+      open={modals.withdrawal}
       maxWidth="sm"
       fullWidth="100%"
       className="modal-ingreso_component"
     >
       <DialogContent dividers>
-        <h1>Ingresar dinero</h1>
+        <h1>Retirar dinero</h1>
 
         <TextField
           id="outlined-basic"
@@ -49,8 +46,10 @@ function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           autoComplete="off"
-          error={amount < 1 || amount > 10000}
-          helperText={"*Min $1 / max $10.000"}
+          error={amount < 1 || amount > availableMoney}
+          helperText={
+            (amount > availableMoney && "Saldo no disponible") || "*Min $1"
+          }
           sx={{ m: "1rem 0", width: "100%" }}
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -60,11 +59,10 @@ function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
         <div className="btns_container">
           <Button
             variant="contained"
-            color="success"
-            onClick={handleDeposit}
-            disabled={amount < 1 || amount > 10000}
+            onClick={handleWithdraw}
+            disabled={amount < 1 || amount > availableMoney}
           >
-            Ingresar
+            Retirar
           </Button>
           <Button color="error" onClick={handleClose}>
             Cerrar
@@ -75,4 +73,4 @@ function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
   );
 }
 
-export default ModalIngresoDinero;
+export default ModalRetiroDinero;

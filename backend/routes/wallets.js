@@ -5,7 +5,6 @@ const wallet = Router();
 wallet.put("/wallet/:id", async (req, res) => {
   const { id } = req.params;
   const { amount } = req.body;
-  console.log(amount);
 
   try {
     const response = await Wallet.findByPk(id);
