@@ -1,13 +1,22 @@
 import "./Main.scss";
 
+import { AdvancedChart, TickerTape } from "react-tradingview-embed";
+import { Link, useNavigate } from "react-router-dom";
+
 import { Button } from "@mui/material";
 import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
-import { Link } from "react-router-dom";
 import React from "react";
-import { TickerTape } from "react-tradingview-embed";
+import creditCard from "../../../utils/assets/svg/creditcard.svg";
+import percentage from "../../../utils/assets/svg/percentage.svg";
+import portfolio from "../../../utils/assets/svg/portfolio.svg";
 import { symbols } from "../../../utils/constants";
 
 function Main({ setOption }) {
+  const navigate = useNavigate();
+
+  const goToSignUp = () => navigate("/sign-in", setOption("signUp"));
+  const goToLogIn = () => navigate("/sign-in", setOption("logIn"));
+
   return (
     <>
       <HeaderMain setOption={setOption} />
@@ -21,9 +30,9 @@ function Main({ setOption }) {
             <p className="p_text">
               Invertí y obtené rendimientos a corto/largo plazo.
             </p>
-            <Link to="/home">
-              <Button variant="outlined">REGISTRARSE</Button>
-            </Link>
+            <Button variant="outlined" onClick={goToSignUp}>
+              REGISTRARSE
+            </Button>
           </div>
 
           <TickerTape
@@ -42,9 +51,11 @@ function Main({ setOption }) {
               del mercado durante las 24 horas del día. Nunca antes habia sido
               tan facil.
             </p>
-            <Button variant="outlined">REGISTRARSE</Button>
+            <Button variant="outlined" onClick={goToSignUp}>
+              REGISTRARSE
+            </Button>
           </div>
-          <img src="" alt="img" />
+          <img src={creditCard} alt="tarjeta de credito" />
         </section>
         <section className="section_container--flex">
           <div>
@@ -53,9 +64,11 @@ function Main({ setOption }) {
               Si, leiste bien. El primer exchange que no te cobra NADA por
               ingresar/retirar dinero o comprar/vender cualquier activo.
             </p>
-            <Button variant="outlined">COMPRAR SIN COMISION</Button>
+            <Button variant="outlined" onClick={goToSignUp}>
+              Comprar sin comision
+            </Button>
           </div>
-          <img src="" alt="img" />
+          <img src={percentage} alt="sin comisiones" />
         </section>
         <section className="section_container--flex">
           <div>
@@ -64,9 +77,27 @@ function Main({ setOption }) {
               Consulta el grafico del activo que mas te guste, para estar al
               tanto de mercado en cualquier momento desde nuestra plataforma.
             </p>
-            <Button variant="outlined">REGISTRARSE</Button>
+            <Button variant="outlined" onClick={goToSignUp}>
+              REGISTRARSE
+            </Button>
           </div>
-          <h1>grafico tw</h1>
+          <div className="chart_container">
+            <AdvancedChart
+              widgetProps={{
+                symbol: "BTCUSD",
+                allow_symbol_change: false,
+                interval: "D",
+                style: 1,
+                locale: "es",
+                range: "2m",
+                hide_side_toolbar: true,
+                hide_top_toolbar: true,
+                withdateranges: false,
+                height: 300,
+                width: window.innerWidth > 1000 ? 500 : 350,
+              }}
+            />
+          </div>
         </section>
         <section className="section_container--flex">
           <div>
@@ -74,17 +105,23 @@ function Main({ setOption }) {
             <p className="p_text">
               Consulta tu portolio personal con hasta el ultimo detalle.
             </p>
-            <Button variant="outlined">REGISTRARSE</Button>
+            <Button variant="outlined" onClick={goToSignUp}>
+              REGISTRARSE
+            </Button>
           </div>
-          <img src="" alt="img" />
+          <img src={portfolio} alt="portfolio detallado" />
         </section>
         <section className="section_container--last">
           <div className="last_div">
-            <h1 className="h1_text">Que estas esperando?</h1>
+            <h1 className="h1_text--center">Que estas esperando?</h1>
             <p className="p_text">Comenza ya mismo a generar ganancias.</p>
             <div>
-              <Button variant="contained">REGISTRARSE</Button>
-              <Button variant="outlined">INGRESAR</Button>
+              <Button variant="contained" onClick={goToSignUp}>
+                REGISTRARSE
+              </Button>
+              <Button variant="outlined" onClick={goToLogIn}>
+                INGRESAR
+              </Button>
             </div>
           </div>
         </section>
