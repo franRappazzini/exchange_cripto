@@ -1,7 +1,6 @@
 import "./Main.scss";
 
 import { AdvancedChart, TickerTape } from "react-tradingview-embed";
-import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@mui/material";
 import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
@@ -10,6 +9,7 @@ import creditCard from "../../../utils/assets/svg/creditcard.svg";
 import percentage from "../../../utils/assets/svg/percentage.svg";
 import portfolio from "../../../utils/assets/svg/portfolio.svg";
 import { symbols } from "../../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 function Main({ setOption }) {
   const navigate = useNavigate();

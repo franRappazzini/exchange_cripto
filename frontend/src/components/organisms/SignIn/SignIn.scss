@@ -27,5 +27,12 @@
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 1rem;
     }
+
+    .alert_log-in {
+      margin-top: 1rem;
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
   }
 }

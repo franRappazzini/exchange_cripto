@@ -24,6 +24,8 @@ function SignIn({ option, setOption }) {
     <>
       <HeaderMain setOption={setOption} />
 
+      {/* TODO hacer esto responsive */}
+
       <main className="sign-in_component">
         <div
           className="backgroud_black"
@@ -34,7 +36,7 @@ function SignIn({ option, setOption }) {
               ? "Si no tienes cuenta,"
               : "Si ya tienes cuenta,"}
             <Button onClick={handleClick}>
-              {option === "logIn" ? "registrate." : "inicia sesion."}
+              {option === "logIn" ? "registrate" : "inicia sesion"}
             </Button>
           </p>
         </div>

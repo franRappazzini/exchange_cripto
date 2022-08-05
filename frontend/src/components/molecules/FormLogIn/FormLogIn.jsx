@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -12,8 +13,10 @@ import React from "react";
 import { hash } from "../../../utils/functions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function FormLogIn({ userLogIn, setUserLogIn }) {
+  const [alert, setAlert] = useState(false);
   const { users } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const allUsers = users.length > 0 ? users : [];
@@ -37,7 +40,7 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
         localStorage.setItem("logedUser", JSON.stringify(user));
         setUserLogIn({ email: "", password: "" });
         navigate("/home");
-      } else alert("error al iniciar sesion");
+      } else showAlert();
     }
   }
 
@@ -45,10 +48,17 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
     setUserLogIn({ ...userLogIn, [e.target.name]: e.target.value });
   }
 
+  function showAlert() {
+    setAlert(true);
+
+    setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+  }
+
   return (
     <Card sx={{ p: "2rem" }} className="card_log-in">
       <CardHeader title="Ingresar" sx={{ p: "0 0 1rem 0" }} />
-
       <CardContent>
         <form action="" onSubmit={handleSubmit}>
           <TextField
@@ -79,6 +89,11 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
             </Button>
           </div>
         </form>
+        {alert && (
+          <Alert className="alert_log-in" severity="warning">
+            Email y/o contraseña incorrectas, por favor vuelva a intentar
+          </Alert>
+        )}
       </CardContent>
     </Card>
   );

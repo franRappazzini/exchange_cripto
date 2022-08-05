@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -9,8 +10,10 @@ import { createUser, getAllUsers } from "../../../redux/actions/userActions";
 
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 function FormSignUp({ newUser, setNewUser, setOption }) {
+  const [alert, setAlert] = useState({ error: false, success: false });
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
@@ -20,14 +23,15 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
 
     const res = await createUser(newUser);
     // TODO crear modal para esto
-    if (res) {
-      alert(res.response.data.error);
-    } else {
-      // TODO reiniciar inputs y setear user
+    if (res) showAlert("error");
+    else {
+      // console.log(res);
+      // alert("ok");
+      // setOption("logIn");
+
       dispatch(getAllUsers());
-      console.log(res);
-      alert("ok");
-      setOption("logIn");
+      setNewUser({ name: "", lastName: "", email: "", password: "" });
+      showAlert("success");
     }
   }
 
@@ -55,6 +59,15 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
       alert("error en password");
       return true;
     }
+  }
+
+  function showAlert(type) {
+    setAlert({ ...alert, [type]: true });
+
+    setTimeout(() => {
+      if (alert.success) setOption("logIn"); // TODO ver esto que no lo toma
+      setAlert({ error: false, success: false });
+    }, 3000);
   }
 
   return (
@@ -104,6 +117,17 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
             </Button>
           </div>
         </form>
+
+        {(alert.error || alert.success) && (
+          <Alert
+            className="alert_log-in"
+            severity={alert.success ? "success" : "warning"}
+          >
+            {alert.success
+              ? "Usuario creado con exito!"
+              : "Error al crear el usuario"}
+          </Alert>
+        )}
       </CardContent>
     </Card>
   );
