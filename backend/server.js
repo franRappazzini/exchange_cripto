@@ -10,7 +10,10 @@ const walletsRouter = require("./routes/wallets");
 server.use(express.json());
 // server.use(cors());
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.URL_SERVER);
+  res.header("Access-Control-Allow-Origin", process.env.URL_APP);
+  res.header("Access-Control-Allow-Origin", process.env.URL_APP2);
+  res.header("Access-Control-Allow-Origin", process.env.URL_APP3);
+  res.header("Access-Control-Allow-Origin", process.env.URL_APP4);
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   // res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
