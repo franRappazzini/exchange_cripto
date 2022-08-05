@@ -24,7 +24,7 @@ server.use("", usersRouter);
 server.use("", coinsRouter);
 server.use("", walletsRouter);
 
-server.listen(3001, () => {
+server.listen(process.env.PORT, () => {
   sequelize.sync({ force: false });
   console.log("Server listening on port: 3001");
 });

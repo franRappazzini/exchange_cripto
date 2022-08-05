@@ -20,7 +20,7 @@ export function getCoins() {
 
 export async function tradingCoins(coin) {
   try {
-    await axios.post("http://localhost:3001/coins", coin);
+    await axios.post("/coins", coin);
   } catch (err) {
     return err;
   }
