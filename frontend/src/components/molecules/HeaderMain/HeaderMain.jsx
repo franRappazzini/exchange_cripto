@@ -10,25 +10,31 @@ function HeaderMain({ setOption }) {
 
   const navigate = useNavigate();
 
-  function toggleDrawer(option) {
-    setBurger(option);
+  function navigateToSignUp() {
+    setBurger(false);
+    navigate("/sign-in", setOption("signUp"));
+  }
+
+  function navigateToLogIn() {
+    setBurger(false);
+    navigate("/sign-in", setOption("logIn"));
   }
 
   return (
     <header className="main-header_component">
       <Link to="/">
-        <h1>HeaderMain</h1>
+        <h1>Home</h1>
       </Link>
 
       <div>
-        <Button onClick={() => toggleDrawer(true)}>
+        <Button onClick={() => setBurger(true)}>
           {burger ? <Close /> : <Menu />}
         </Button>
         <SwipeableDrawer
           anchor="right"
           open={burger}
-          onClose={() => toggleDrawer(false)}
-          onOpen={() => toggleDrawer(true)}
+          onClose={() => setBurger(false)}
+          onOpen={() => setBurger(true)}
         >
           <Box
             sx={{
@@ -39,16 +45,10 @@ function HeaderMain({ setOption }) {
               gridGap: "0.5rem",
             }}
           >
-            <Button
-              variant="contained"
-              onClick={() => navigate("/sign-in", setOption("signUp"))}
-            >
+            <Button variant="contained" onClick={navigateToSignUp}>
               REGISTRARSE
             </Button>
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/sign-in", setOption("logIn"))}
-            >
+            <Button variant="outlined" onClick={navigateToLogIn}>
               INGRESAR
             </Button>
           </Box>

@@ -15,6 +15,7 @@ function SignIn({ option, setOption }) {
     email: "",
     password: "",
   });
+  const innerWidth = window.innerWidth;
 
   function handleClick() {
     setOption(option === "logIn" ? "signUp" : "logIn");
@@ -23,8 +24,6 @@ function SignIn({ option, setOption }) {
   return (
     <>
       <HeaderMain setOption={setOption} />
-
-      {/* TODO hacer esto responsive */}
 
       <main className="sign-in_component">
         <div
@@ -41,13 +40,17 @@ function SignIn({ option, setOption }) {
           </p>
         </div>
 
-        <FormLogIn userLogIn={userLogIn} setUserLogIn={setUserLogIn} />
+        {((innerWidth < 700 && option === "logIn") || innerWidth > 700) && (
+          <FormLogIn userLogIn={userLogIn} setUserLogIn={setUserLogIn} />
+        )}
 
-        <FormSignUp
-          newUser={newUser}
-          setNewUser={setNewUser}
-          setOption={setOption}
-        />
+        {((innerWidth < 700 && option === "signUp") || innerWidth > 700) && (
+          <FormSignUp
+            newUser={newUser}
+            setNewUser={setNewUser}
+            setOption={setOption}
+          />
+        )}
       </main>
     </>
   );

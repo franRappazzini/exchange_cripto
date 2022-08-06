@@ -34,5 +34,19 @@
   }
 
   @media only screen and (max-width: 850px) {
+    .card_sign-up,
+    .card_log-in {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    grid-template-columns: 1fr;
+
+    .backgroud_black {
+      display: none;
+    }
   }
 }
