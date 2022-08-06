@@ -44,9 +44,9 @@ function Account() {
     <>
       <Header />
 
-      <main className="account_component">
+      <main className="account_component component">
         {name && (
-          <Card elevation={4} sx={{ minWidth: "50vw" }}>
+          <Card elevation={4} sx={{ minWidth: "50vw", height: "fit-content" }}>
             <CardHeader title="Mis datos" />
             <CardContent className="account-card_container">
               <div>

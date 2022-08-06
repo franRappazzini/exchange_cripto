@@ -25,7 +25,7 @@ function SignIn({ option, setOption }) {
     <>
       <HeaderMain setOption={setOption} />
 
-      <main className="sign-in_component">
+      <main className="sign-in_component component">
         <div
           className="backgroud_black"
           style={option === "logIn" ? { right: 0 } : { left: 0 }}

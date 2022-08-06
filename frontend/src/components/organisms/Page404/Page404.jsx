@@ -7,7 +7,7 @@ import img404 from "../../../utils/assets/svg/404.svg";
 
 function Page404() {
   return (
-    <main className="page404_component">
+    <main className="page404_component component">
       <section>
         <h1>Ooops.. Error 404</h1>
         <h3>Pagina no encontrada</h3>

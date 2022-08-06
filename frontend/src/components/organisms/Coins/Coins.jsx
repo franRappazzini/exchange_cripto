@@ -47,7 +47,7 @@ function Coins() {
     <>
       <Header />
 
-      <main className="operar_component">
+      <main className="operar_component component">
         <section className="search_section">
           <TextField
             id="standard-basic"

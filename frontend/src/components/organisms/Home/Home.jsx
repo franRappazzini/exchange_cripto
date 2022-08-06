@@ -60,7 +60,7 @@ function Home() {
     <>
       <Header />
 
-      <main className="home_component">
+      <main className="home_component component">
         <MoneyBtns />
 
         <AvailableBalance logedUser={logedUser} coinData={coinData} />

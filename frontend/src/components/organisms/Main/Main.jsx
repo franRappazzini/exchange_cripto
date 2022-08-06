@@ -21,7 +21,7 @@ function Main({ setOption }) {
     <>
       <HeaderMain setOption={setOption} />
 
-      <main className="main_component">
+      <main className="main_component component">
         <section className="section_container">
           <div className="div--margin-bottom">
             <h1 className="h1_text">

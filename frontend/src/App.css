@@ -1,3 +1,9 @@
+.component {
+  background-color: #121212;
+  color: whitesmoke;
+  min-height: 100vh;
+}
+
 a {
   text-decoration: none;
 }

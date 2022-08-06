@@ -42,7 +42,7 @@ function CoinAdvancedDetails({ coin, modals, setModals }) {
         <h3>
           {coin.name} ({coin.symbol.toUpperCase()})
         </h3>
-        {isFavorite() ? (
+        {/* {isFavorite() ? (
           <IconButton
             color="warning"
             aria-label="Quitar favorito"
@@ -58,7 +58,7 @@ function CoinAdvancedDetails({ coin, modals, setModals }) {
           >
             <StarOutline />
           </IconButton>
-        )}
+        )} */}
       </div>
       <div className="second_div">
         <h1>${new Intl.NumberFormat().format(coin.current_price)}</h1>

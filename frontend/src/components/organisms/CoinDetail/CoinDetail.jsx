@@ -36,7 +36,7 @@ function CoinDetail() {
     <>
       <Header />
 
-      <main className="coin-detail_component">
+      <main className="coin-detail_component component">
         <Breadcrumbs aria-label="breadcrumb" className="breadcrumb_container">
           <Link to="/coins">Coins</Link>
           <Typography color="text.secondary">{coin?.name}</Typography>
