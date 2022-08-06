@@ -3,6 +3,7 @@ import "./Main.scss";
 import { AdvancedChart, TickerTape } from "react-tradingview-embed";
 
 import { Button } from "@mui/material";
+import Footer from "../../molecules/Footer/Footer";
 import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
 import React from "react";
 import creditCard from "../../../utils/assets/svg/creditcard.svg";
@@ -126,6 +127,8 @@ function Main({ setOption }) {
           </div>
         </section>
       </main>
+
+      <Footer />
     </>
   );
 }

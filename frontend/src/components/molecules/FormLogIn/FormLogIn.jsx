@@ -57,7 +57,7 @@ function FormLogIn({ userLogIn, setUserLogIn }) {
   }
 
   return (
-    <Card sx={{ p: "2rem" }} className="card_log-in">
+    <Card sx={{ p: "2rem", height: "fit-content" }} className="card_log-in">
       <CardHeader title="Ingresar" sx={{ p: "0 0 1rem 0" }} />
       <CardContent>
         <form action="" onSubmit={handleSubmit}>

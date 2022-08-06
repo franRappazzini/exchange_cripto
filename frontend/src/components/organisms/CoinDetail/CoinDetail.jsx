@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import AdvancedChartInfo from "../../molecules/AdvancedChartInfo/AdvancedChartInfo";
 import CoinAdvancedDetails from "../../molecules/CoinAdvancedDetails/CoinAdvancedDetails";
+import Footer from "../../molecules/Footer/Footer";
 import Header from "../../molecules/Header/Header";
 import ModalsContainer from "../../molecules/ModalsContainer/ModalsContainer";
 import { getCoins } from "../../../redux/actions/cryptoActions";
@@ -64,6 +65,8 @@ function CoinDetail() {
           </div>
         )}
       </main>
+
+      <Footer />
     </>
   );
 }

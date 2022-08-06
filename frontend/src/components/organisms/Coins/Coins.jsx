@@ -4,6 +4,7 @@ import { Button, CircularProgress, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Footer from "../../molecules/Footer/Footer";
 import Header from "../../molecules/Header/Header";
 import TableContainerOperar from "../../molecules/TableCointainerOperar/TableContainerOperar";
 import { getCoins } from "../../../redux/actions/cryptoActions";
@@ -74,6 +75,8 @@ function Coins() {
           </div>
         )}
       </main>
+
+      <Footer />
     </>
   );
 }

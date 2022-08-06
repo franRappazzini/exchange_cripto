@@ -3,6 +3,7 @@ import "./SignIn.scss";
 import React, { useState } from "react";
 
 import { Button } from "@mui/material";
+import Footer from "../../molecules/Footer/Footer";
 import FormLogIn from "../../molecules/FormLogIn/FormLogIn";
 import FormSignUp from "../../molecules/FormSingUp/FormSignUp";
 import HeaderMain from "../../molecules/HeaderMain/HeaderMain";
@@ -52,6 +53,8 @@ function SignIn({ option, setOption }) {
           />
         )}
       </main>
+
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,24 @@
+.footer_component {
+  background-color: #1e1e1e;
+  padding: 1.5rem 0 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: whitesmoke;
+  }
+
+  a {
+    text-decoration: none;
+    color: whitesmoke;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1.5px;
+    transition: background-size 0.5s;
+    &:hover {
+      background-size: 100% 1.5px;
+    }
+  }
+}

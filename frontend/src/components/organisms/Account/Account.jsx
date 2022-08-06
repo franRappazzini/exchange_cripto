@@ -10,6 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Footer from "../../molecules/Footer/Footer";
 import Header from "../../molecules/Header/Header";
 import ModalChangePassword from "../../molecules/ModalChangePassword/ModalChangePassword";
 import { setLogedUser } from "../../../redux/actions/userActions";
@@ -101,6 +102,8 @@ function Account() {
           updateUser={updateUser}
         />
       </main>
+
+      <Footer />
     </>
   );
 }

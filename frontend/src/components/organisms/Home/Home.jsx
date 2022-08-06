@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import AvailableBalance from "../../molecules/AvailableBalance/AvailableBalance";
+import Footer from "../../molecules/Footer/Footer";
 import Header from "../../molecules/Header/Header";
 import MoneyBtns from "../../molecules/MoneyBtns/MoneyBtns";
 import React from "react";
@@ -105,6 +106,8 @@ function Home() {
           </p>
         )}
       </main>
+
+      <Footer />
     </>
   );
 }

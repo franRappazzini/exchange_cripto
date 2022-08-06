@@ -73,7 +73,7 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
   }
 
   return (
-    <Card sx={{ p: "2rem" }} className="card_sign-up">
+    <Card sx={{ p: "2rem", height: "fit-content" }} className="card_sign-up">
       <CardHeader title="Registrarse" sx={{ p: "0 0 1rem 0" }} />
 
       <CardContent>
