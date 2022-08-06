@@ -1,6 +1,7 @@
 import "./ModalCompra.scss";
 
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -16,6 +17,7 @@ import { useState } from "react";
 
 function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
   const [amount, setAmount] = useState("");
+  const [alert, setAlert] = useState(false);
   const { id, name, current_price, image, symbol } = coin;
   const { availableMoney } = logedUser.Wallet;
   const walletId = logedUser.Wallet.id;
@@ -36,12 +38,19 @@ function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
 
     const res = await tradingCoins(newCoin);
 
-    if (res) return alert(res.message);
+    if (res) return;
     else {
       updateUser();
-      alert("todo ok"); // TODO alert de mui
-      handleClose();
+      showAlert();
     }
+  }
+
+  function showAlert() {
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+      handleClose();
+    }, 2500);
   }
 
   return (
@@ -52,6 +61,11 @@ function ModalCompra({ modals, handleClose, coin, logedUser, updateUser }) {
       fullWidth="100%"
     >
       <DialogContent dividers>
+        {alert && (
+          <Alert variant="outlined" severity="success">
+            {amount} {symbol.toUpperCase()} comprado!
+          </Alert>
+        )}
         <section className="coin_container">
           <div>
             <img src={image} alt={id} width={60} />

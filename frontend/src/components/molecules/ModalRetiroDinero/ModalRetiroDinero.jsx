@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -11,19 +12,27 @@ import { moneyTransfer } from "../../../redux/actions/walletActions";
 
 function ModalRetiroDinero({ modals, handleClose, logedUser, updateUser }) {
   const [amount, setAmount] = useState(1);
+  const [alert, setAlert] = useState(false);
   const { id, availableMoney } = logedUser.Wallet;
 
   async function handleWithdraw() {
     if (amount < 1 || amount > availableMoney) return;
 
     const res = await moneyTransfer(id, parseFloat(-amount));
-
-    if (res) alert(res.message);
+    if (res) return;
     else {
       updateUser();
-      alert("retiro ok"); // TODO crear modal para esto
-      handleClose();
+      showAlert();
     }
+  }
+
+  function showAlert() {
+    setAlert(true);
+    setAmount(1);
+    setTimeout(() => {
+      setAlert(false);
+      handleClose();
+    }, 2500);
   }
 
   return (
@@ -35,6 +44,11 @@ function ModalRetiroDinero({ modals, handleClose, logedUser, updateUser }) {
       className="modal-ingreso_component"
     >
       <DialogContent dividers>
+        {alert && (
+          <Alert variant="outlined" severity="success">
+            Retiro exitoso!
+          </Alert>
+        )}
         <h1>Retirar dinero</h1>
 
         <TextField

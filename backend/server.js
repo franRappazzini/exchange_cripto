@@ -31,6 +31,7 @@ server.use("", coinsRouter);
 server.use("", walletsRouter);
 
 server.listen(process.env.PORT, () => {
+  // TODO si se crea wallet con UserId null se rompe
   sequelize.sync({ force: false });
   console.log("Server listening on port: 3001");
 });

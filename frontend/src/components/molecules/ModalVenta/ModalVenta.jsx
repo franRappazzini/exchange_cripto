@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -13,6 +14,7 @@ import { useState } from "react";
 
 function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
   const [amount, setAmount] = useState("");
+  const [alert, setAlert] = useState(false);
   const { id, name, current_price, image, symbol } = coin;
   const walletId = logedUser.Wallet.id;
 
@@ -31,12 +33,10 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
     };
 
     const res = await tradingCoins(newTrading);
-    if (res) return alert(res.message);
+    if (res) return;
     else {
       updateUser();
-      setAmount("");
-      alert("todo ok");
-      handleClose();
+      showAlert();
     }
   }
 
@@ -50,6 +50,14 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
     } else return 0;
   }
 
+  function showAlert() {
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+      handleClose();
+    }, 2500);
+  }
+
   return (
     <>
       <Dialog
@@ -59,6 +67,11 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
         fullWidth="100%"
       >
         <DialogContent dividers>
+          {alert && (
+            <Alert variant="outlined" severity="success">
+              {amount} {symbol.toUpperCase()} vendido!
+            </Alert>
+          )}
           <section className="coin_container">
             <div>
               <img src={image} alt={id} width={60} />

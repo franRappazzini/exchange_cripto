@@ -13,7 +13,11 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 function FormSignUp({ newUser, setNewUser, setOption }) {
-  const [alert, setAlert] = useState({ error: false, success: false });
+  const [alerts, setAlerts] = useState({
+    error: false,
+    success: false,
+    text: "",
+  });
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
@@ -22,16 +26,12 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
     if (validate()) return;
 
     const res = await createUser(newUser);
-    // TODO crear modal para esto
-    if (res) showAlert("error");
+    console.log(res);
+    if (res) showAlert(true, false, res.response.data.error);
     else {
-      // console.log(res);
-      // alert("ok");
-      // setOption("logIn");
-
       dispatch(getAllUsers());
       setNewUser({ name: "", lastName: "", email: "", password: "" });
-      showAlert("success");
+      showAlert(false, true, "Usuario creado con exito!");
     }
   }
 
@@ -44,29 +44,31 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
     // const validatePass = new RegExp(
     //   "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})"
     // );
-    if (!name.match(/^[A-Za-z]+$/)) {
-      alert("error en name");
+    if (!name.match(/^[a-zA-Z\s]*$/)) {
+      showAlert(true, false, "El nombre solo debe contener letras");
       return true;
-    } else if (!lastName.match(/^[A-Za-z]+$/)) {
-      alert("error en lastName");
+    } else if (!lastName.match(/^[a-zA-Z\s]*$/)) {
+      showAlert(true, false, "El apellido solo debe contener letras");
       return true;
     } else if (!email.match(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)) {
-      alert("error en email");
+      showAlert(true, false, "El email debe tener formato de email");
       return true;
     } else if (!password.length > 0) {
       // no lo dejo para facilitar al user
       // else if (!password.match(validatePass)) {
-      alert("error en password");
+      const text =
+        "La contraseña debe ser mayor a 8 caracteres, contener al menos una letra mayuscula, una letra minuscula, un numero y un simbolo";
+      showAlert(true, false, text);
       return true;
     }
   }
 
-  function showAlert(type) {
-    setAlert({ ...alert, [type]: true });
+  function showAlert(error, success, text) {
+    setAlerts({ error, success, text });
 
     setTimeout(() => {
-      if (alert.success) setOption("logIn"); // TODO ver esto que no lo toma
-      setAlert({ error: false, success: false });
+      if (success) setOption("logIn");
+      setAlerts({ error: false, success: false, text: "" });
     }, 3000);
   }
 
@@ -118,14 +120,12 @@ function FormSignUp({ newUser, setNewUser, setOption }) {
           </div>
         </form>
 
-        {(alert.error || alert.success) && (
+        {(alerts.error || alerts.success) && (
           <Alert
             className="alert_log-in"
-            severity={alert.success ? "success" : "warning"}
+            severity={alerts.success ? "success" : "warning"}
           >
-            {alert.success
-              ? "Usuario creado con exito!"
-              : "Error al crear el usuario"}
+            {alerts.text}
           </Alert>
         )}
       </CardContent>

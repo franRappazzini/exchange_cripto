@@ -1,6 +1,7 @@
 import "./ModalChangePassword.scss";
 
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -19,20 +20,26 @@ import { hash } from "../../../utils/functions";
 import { useState } from "react";
 
 function ModalChangePassword({ modal, setModal, id, password, updateUser }) {
+  const [alerts, setAlerts] = useState({
+    error: false,
+    success: false,
+    text: "",
+  });
   const [passwords, setPasswords] = useState({ current: "", new: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleChangePassword() {
     const currentPassword = await hash(passwords.current);
     // no hago validacion de password para que sea mas facil al user
-    if (!(currentPassword === password) || passwords.new === "") return; // TODO alert mui
+    if (!(currentPassword === password) || passwords.new === "") {
+      return showAlert(true, false, "La contrseña actual es incorrecta");
+    }
 
     const res = await changePassword(id, passwords.new);
-    if (res) alert(res.message);
+    if (res) showAlert(true, false, "Error");
     else {
       updateUser();
-      alert("password cambiada ok"); // TODO alert de mui
-      setModal(false);
+      showAlert(false, true, "Contrseña cambiada con exito!");
     }
   }
 
@@ -48,6 +55,18 @@ function ModalChangePassword({ modal, setModal, id, password, updateUser }) {
     setShowPassword(!showPassword);
   }
 
+  function showAlert(error, success, text) {
+    setAlerts({ error, success, text });
+
+    setTimeout(() => {
+      if (success) {
+        setModal(false);
+        setPasswords({ current: "", new: "" });
+      }
+      setAlerts({ error: false, success: false, text: "" });
+    }, 2000);
+  }
+
   return (
     <Dialog
       onClose={handleClose}
@@ -57,6 +76,14 @@ function ModalChangePassword({ modal, setModal, id, password, updateUser }) {
       className="modal-password_component"
     >
       <DialogContent dividers>
+        {(alerts.error || alerts.success) && (
+          <Alert
+            variant="outlined"
+            severity={alerts.error ? "warning" : "success"}
+          >
+            {alerts.text}
+          </Alert>
+        )}
         <h1>Cambiar contraseña</h1>
 
         <section className="inputs_container">

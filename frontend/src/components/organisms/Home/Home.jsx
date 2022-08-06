@@ -65,7 +65,7 @@ function Home() {
 
         <AvailableBalance logedUser={logedUser} coinData={coinData} />
 
-        {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 && (
+        {logedUser.Wallet && logedUser.Wallet.TradingCoins.length > 0 ? (
           <Card
             sx={{ margin: "1rem 0" }}
             elevation={4}
@@ -99,6 +99,10 @@ function Home() {
               </Table>
             </TableContainer>
           </Card>
+        ) : (
+          <p className="text_no-portfolio">
+            Aqui veras tu portfolio detallado cuando tengas algun activo
+          </p>
         )}
       </main>
     </>

@@ -49,12 +49,6 @@ function Account() {
           <Card elevation={4} sx={{ minWidth: "50vw" }}>
             <CardHeader title="Mis datos" />
             <CardContent className="account-card_container">
-              {/* <div>
-              <Typography>{11}</Typography>
-              <Typography variant="body2" color={"gray"}>
-                DNI
-              </Typography>
-            </div> */}
               <div>
                 <Typography>{name}</Typography>
                 <Typography variant="body2" color={"gray"}>
@@ -80,14 +74,6 @@ function Account() {
                   Contraseña
                 </Typography>
               </div>
-              {/* <div>
-              <Typography>
-                $00
-              </Typography>
-              <Typography variant="body2" color={"gray"}>
-                Dinero en cuenta
-              </Typography>
-            </div> */}
               <Button
                 size="small"
                 variant="text"

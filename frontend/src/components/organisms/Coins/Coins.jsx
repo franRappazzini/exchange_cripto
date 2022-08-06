@@ -57,12 +57,13 @@ function Coins() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <div className="btns_container">
+          {/* TODO hacer favoritos */}
+          {/* <div className="btns_container">
             <Button variant="outlined">Todas</Button>
             <Button variant="outlined" color="warning">
               Favoritas
             </Button>
-          </div>
+          </div> */}
         </section>
 
         {coins.length > 0 ? (

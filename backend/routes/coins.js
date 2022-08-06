@@ -23,6 +23,7 @@ coins.post("/coins", async (req, res) => {
 
     // actualizamos el valor de la wallet
     const wallet = await coin.getWallet();
+    console.log(wallet);
     wallet.availableMoney -= investmentAmount;
     await wallet.save();
 

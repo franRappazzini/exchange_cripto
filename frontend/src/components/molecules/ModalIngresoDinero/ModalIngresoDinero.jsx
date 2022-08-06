@@ -1,6 +1,7 @@
 import "./ModalIngresoDinero.scss";
 
 import {
+  Alert,
   Button,
   Dialog,
   DialogContent,
@@ -14,19 +15,27 @@ import { useState } from "react";
 
 function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
   const [amount, setAmount] = useState(1);
+  const [alert, setAlert] = useState(false);
   const walletId = logedUser.Wallet.id;
 
   async function handleDeposit() {
     if (amount < 1 || amount > 10000) return;
 
     const res = await moneyTransfer(walletId, parseFloat(amount));
-
-    if (res) alert(res.message);
+    if (res) return;
     else {
       updateUser();
-      alert("ingreso ok"); // TODO crear modal para esto
-      handleClose();
+      showAlert();
     }
+  }
+
+  function showAlert() {
+    setAlert(true);
+    setAmount(1);
+    setTimeout(() => {
+      setAlert(false);
+      handleClose();
+    }, 2500);
   }
 
   return (
@@ -38,6 +47,12 @@ function ModalIngresoDinero({ modals, handleClose, logedUser, updateUser }) {
       className="modal-ingreso_component"
     >
       <DialogContent dividers>
+        {alert && (
+          <Alert variant="outlined" severity="success">
+            Ingreso exitoso!
+          </Alert>
+        )}
+
         <h1>Ingresar dinero</h1>
 
         <TextField
