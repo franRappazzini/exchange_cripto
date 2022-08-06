@@ -1,7 +1,7 @@
 # Exchange cripto
 Compra/venta de criptomonedas en tiempo real (demo).
 
-## Dependencias Utilizadas 🛠️
+## 🛠️ Dependencias Utilizadas
 
 * React JS
 * Redux
