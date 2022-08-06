@@ -1,0 +1,44 @@
+.page404_component {
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  section {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 1rem 0;
+    }
+    h3 {
+      margin: 0 0 1rem 0;
+    }
+
+    a {
+      width: fit-content;
+    }
+  }
+
+  img {
+    width: 300px;
+  }
+
+  @media only screen and (max-width: 680px) {
+    flex-direction: column;
+
+    section {
+      align-items: center;
+
+      h1,
+      h3 {
+        text-align: center;
+      }
+    }
+
+    img {
+      width: 250px;
+    }
+  }
+}

@@ -7,11 +7,14 @@ import CoinDetail from "./components/organisms/CoinDetail/CoinDetail";
 import Coins from "./components/organisms/Coins/Coins";
 import Home from "./components/organisms/Home/Home";
 import Main from "./components/organisms/Main/Main";
+import Page404 from "./components/organisms/Page404/Page404";
 import SignIn from "./components/organisms/SignIn/SignIn";
 import { useState } from "react";
 
 function App() {
   const [option, setOption] = useState("logIn");
+
+  // TODO ver si sacar los alert afuera del component
 
   return (
     <>
@@ -31,7 +34,7 @@ function App() {
 
         <Route path="/account" element={<Account />} />
 
-        {/* TODO page 404 */}
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </>
   );

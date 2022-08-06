@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: { len: [8] },
 
       set(value) {
-        // TODO hacer function hash
         this.setDataValue("password", hash(value));
       },
     },

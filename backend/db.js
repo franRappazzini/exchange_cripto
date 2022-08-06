@@ -1,6 +1,5 @@
 require("dotenv").config();
 const { Sequelize, DataTypes } = require("sequelize");
-// TODO hacer las variables de entorno, dotenv
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 const modelUser = require("./models/User");
 const modelWallet = require("./models/Wallet");

@@ -124,7 +124,6 @@ function ModalVenta({ modals, handleClose, coin, logedUser, updateUser }) {
                 variant="contained"
                 color="error"
                 onClick={handleTrading}
-                // TODO aclarar min de venta $1
                 disabled={current_price * amount < 1 ? true : false}
               >
                 Vender

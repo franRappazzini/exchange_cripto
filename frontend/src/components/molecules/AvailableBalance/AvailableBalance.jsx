@@ -39,7 +39,6 @@ function AvailableBalance({ logedUser, coinData }) {
           </Tooltip>
         </Typography>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
-          {/* TODO ir sumando/restando a la wallet a medida que compre/venda ???? */}
           Mis inversiones: ${new Intl.NumberFormat().format(totalInvestments())}
           <Tooltip title="Dinero invertido total" arrow>
             <Info
