@@ -44,7 +44,7 @@ function Header() {
             }}
           >
             <NavLink to={"/home"}>
-              <Button variant="text">Porfolio</Button>
+              <Button variant="text">Portfolio</Button>
             </NavLink>
             <Link to={"/coins"}>
               <Button variant="text">Coins</Button>
