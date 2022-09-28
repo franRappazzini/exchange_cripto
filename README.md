@@ -6,7 +6,7 @@ Compra/venta de criptomonedas en tiempo real (demo).
 * React JS
 * Redux
 * Express js
-* PostrgreSQL
+* PostgreSQL
 * Sequelize
 * Sass
 * Material UI
