@@ -19,20 +19,20 @@ const sequelize =
         port: 5432,
         username: DB_USER,
         password: DB_PASSWORD,
+        models: [__dirname + "/models"],
         pool: { max: 3, min: 1, idle: 10000 },
+        storage: ":memory:",
         dialectOptions: {
           ssl: { require: true, rejectUnauthorized: false },
           keepAlive: true,
         },
         ssl: true,
+        logging: false,
       })
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/exchange`,
-        {
-          logging: false,
-          native: false,
-        }
-      );
+    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/exchange`, {
+        logging: false,
+        native: false,
+      });
 
 modelUser(sequelize, DataTypes);
 modelWallet(sequelize, DataTypes);
